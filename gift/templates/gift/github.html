@@ -1,0 +1,46 @@
+{% extends "gift/layout.html" %}
+
+{% block title %}
+    GitHub
+{% endblock %}
+
+{% block body %}
+  <div class="github">
+    <div class="profile-wrapper">
+      <div class="profile">
+        <img src="{{user.avatar_url}}" alt="user avatar">
+        <div class="profile-info">
+          <div><span class="item"> name :</span>  
+            <span class="badge badge-dark border border-light p-2">{{user.name}}</span>
+          </div>
+          <div><span class="item">login :</span> 
+            <span class="badge badge-dark border border-light p-2">{{user.login}}</span>
+          </div>
+          {% if user.email %}
+          <div><span class="item"> email :</span> 
+            <span class="badge badge-dark border border-light p-2">{{user.email}}</span>
+          </div>
+          {% else %}
+          <div><span class="item"> email :</span> 
+            <span class="badge badge-dark border border-light p-2">unavailable</span>
+          </div>
+          {% endif %}
+          <div><span class="item mr-3">url :</span>
+            <a class="badge badge-dark border border-light p-2" 
+            href="{{user.html_url}}" target="_blank">github page</a>
+          </div>
+        </div>
+      </div>
+      <div class="profile-bio">
+        <div><span class="badge badge-dark border border-light p-2 mb-2">biography</span>
+        </div>
+        {% if user.bio %}
+        {{user.bio}}
+        {% else %}
+        unavailable
+        {% endif %}
+      </div>
+    </div>
+    
+  </div>
+{% endblock %}

@@ -3,5 +3,6 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('user/<str:username>', views.github_user, name='github_user'),
+    path('user', views.github_post, name='github_post'),
+    path('user/<str:username>', views.github_get, name='github_get'),
 ]

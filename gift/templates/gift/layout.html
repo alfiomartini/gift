@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gift - {% block title %}{% endblock %}</title>
+   <!-- Latest compiled and minified CSS -->
+   <link rel="stylesheet" 
+   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" defer>
+
+  <!-- jQuery library -->
+  <script 
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" defer>
+  </script>
+  
+  <!-- Latest compiled JavaScript -->
+  <script 
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" defer>
+  </script>
+  <link href="{% static 'gift/styles.css' %}" rel="stylesheet">
+  <!-- <script src="{% static 'gift/search.js' %}" defer></script>
+  <script src="{% static 'gift/getCookie.js' %}" defer></script> -->
+</head>
+<style>
+  /* body {
+    background-image: url("{% static 'gift/img/yancy-min-github-unsplash-1400-900-min.jpg'%}");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100vh;
+  } */
+</style>
+<body>
+  <nav>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+      <a class="navbar-brand" href="{% url 'index' %}">Gift</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse"     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'index' %}">Home</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2" method="post" action="{% url 'github_post' %}">
+          {% csrf_token %}
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search-input" name="username">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search-btn">
+            Search
+          </button>
+        </form>
+      </div>
+    </nav>
+  </nav>
+
+  <div class="main">
+    {% block body %}
+    {% endblock %}
+    {% block scripts %}
+    {% endblock %}
+  </div>
+</body>
+</html>

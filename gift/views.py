@@ -6,22 +6,32 @@ from .utils import getGitUser, getUserRepos
 
 
 def index(request):
-    return HttpResponse('Hello Gift!')
+    return render(request, 'gift/layout.html', {})
 
 
-def github_user(request, username):
+def github_post(request):
+    if request.method == 'POST':
+        # get username from form and remove spaces from
+        # both ends
+        username = request.POST['username'].strip()
+        user_resp = getGitUser(username)
+        if 'message' in user_resp:
+            return render(request, 'gift/error.html',
+                          {'message': 'User not found'})
+        elif 'error' in user_resp:
+            return render(request, 'gift/error.html',
+                          {'message': user_resp['error']})
+        else:
+            repos_resp = getUserRepos(username)
+            return render(request, 'gift/github.html', {'user': user_resp, 'repos': repos_resp})
+
+
+def github_get(request, username):
     user_resp = getGitUser(username)
-    # print(resp)
     if 'message' in user_resp:
         return JsonResponse({'error': 'User not found'})
-    if 'error' in user_resp:
+    elif 'error' in user_resp:
         return JsonResponse({'error': user_resp['error']})
-    repos_resp = getUserRepos(username)
-    if 'message' in user_resp:
-        return JsonResponse({'error': 'User not found'})
-    if 'error' in user_resp:
-        return JsonResponse({'error': user_resp['error']})
-    user_github = {}
-    user_github['user'] = user_resp
-    user_github['repos'] = repos_resp
-    return JsonResponse(user_github)
+    else:
+        repos_resp = getUserRepos(username)
+        return JsonResponse({'user': user_resp, 'repos': repos_resp})
