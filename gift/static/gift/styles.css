@@ -67,7 +67,8 @@ nav .navbar {
   margin: 20px;
 }
 
-.github .profile-info div {
+.profile-info div,
+.profile-followers div {
   margin: 10px;
   margin-top: 20px;
 }
@@ -86,6 +87,10 @@ nav .navbar {
   margin-left: 20px;
   overflow: hidden;
   text-align: justify;
+}
+
+.profile-followers {
+  color: whitesmoke;
 }
 
 /* Repositories */

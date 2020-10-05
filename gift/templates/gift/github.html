@@ -30,15 +30,26 @@
             href="{{user.html_url}}" target="_blank">github page</a>
           </div>
         </div>
-      </div>
-      <div class="profile-bio">
-        <div><span class="badge badge-dark border border-light p-2 mb-2">biography</span>
+        <div class="profile-bio">
+          <div>
+            <span class="badge badge-dark border border-light p-2 mb-2">biography</span>
+          </div>
+          {% if user.bio %}
+          {{user.bio}}
+          {% else %}
+          unknown
+          {% endif %}
         </div>
-        {% if user.bio %}
-        {{user.bio}}
-        {% else %}
-        unknown
-        {% endif %}
+        <div class="profile-followers">
+          <div>
+            <span class="badge badge-dark border border-light p-2 follow mr-2">Followers</span>
+            {{user.followers}}
+          </div>
+          <div>
+            <span class="badge badge-dark border border-light p-2 follow mr-2">Following</span>
+            {{user.following}}
+          </div>
+        </div>
       </div>
     </div>
     <div class="repos-wrapper">
