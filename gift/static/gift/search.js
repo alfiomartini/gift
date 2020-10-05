@@ -12,7 +12,7 @@ function processSearch(event) {
   let value = input.value.trim();
   console.log("Just before fetch");
   const csrftoken = getCookie("csrftoken");
-  fetch(`/user/${value}`, {
+  fetch(`/user/get/${value}`, {
     method: "GET",
     headers: {
       "X-CSRFToken": csrftoken,
