@@ -71,4 +71,21 @@ def github_get(request, username):
         return JsonResponse({'error': user_resp['error']})
     else:
         repos_resp = getUserRepos(username)
+        for rep in repos_resp:
+            created_str = rep['created_at'].replace('T', ' ')
+            created_str = created_str.replace('Z', '')
+            created_at = datetime.strptime(
+                created_str, "%Y-%m-%d %H:%M:%S")
+            rep['created_at'] = created_at
+
+            updated_str = rep['updated_at'].replace('T', ' ')
+            updated_str = updated_str.replace('Z', '')
+            updated_at = datetime.strptime(
+                updated_str, "%Y-%m-%d %H:%M:%S")
+            rep['updated_at'] = updated_at
+
+            cropped_name = rep['name'][0:15]
+            new_name = cropped_name + ' '
+            rep['name'] = new_name
+        repos_resp.sort(key=lambda x: x['created_at'], reverse=True)
         return JsonResponse({'user': user_resp, 'repos': repos_resp})
