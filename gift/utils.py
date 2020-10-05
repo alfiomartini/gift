@@ -30,3 +30,7 @@ def getUserRepos(username):
             'error': 'Sorry, there was a problem with this request. Try again later.'}
 
     return resp
+
+
+def format_date():
+    pass

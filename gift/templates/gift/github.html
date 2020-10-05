@@ -22,7 +22,7 @@
           </div>
           {% else %}
           <div><span class="item"> email :</span> 
-            <span class="badge badge-dark border border-light p-2">unavailable</span>
+            <span class="badge badge-dark border border-light p-2">unknown</span>
           </div>
           {% endif %}
           <div><span class="item mr-3">url :</span>
@@ -37,10 +37,50 @@
         {% if user.bio %}
         {{user.bio}}
         {% else %}
-        unavailable
+        unknown
         {% endif %}
       </div>
     </div>
-    
+    <div class="repos-wrapper">
+      <h4 class="repos-heading mb-3">Public Repositories - {{user.public_repos}}</h4>
+      <div class="repos-header">
+        <span class="badge badge-dark p-2 name">Name </span>
+        <span class="badge badge-dark p-2">Description</span>
+        <span class="badge badge-dark p-2">Created</span>
+        <span class="badge badge-dark p-2">Updated</span>
+      </div>
+      <ul class="repos">
+        {% for rep in repos %}
+        {% if not repos.private %}
+        <li>
+          <a class="badge badge-primary p-2" href="{{rep.html_url}} " target="_blank">
+            {{rep.name}}
+          </a>
+          {% if rep.description %}
+          <span class="badge badge-secondary p-2 " data-toggle="tooltip"
+          title="{{rep.description}}">about</span>
+          {% else %}
+          <span class="badge badge-secondary p-2">unknown</span>
+          {% endif %}
+          <span class="badge badge-info p-2">{{rep.created_at|date:"M d, Y"}}</span>
+          <span class="badge badge-info p-2">{{rep.updated_at|date:"M d, Y"}}</span>
+        </li>
+        {% endif %}
+      {% empty %}
+      {% endfor %}
+      </ul>
+    </div>
   </div>
+{% endblock %}
+{% block scripts %}
+<script>
+  // document.onload = () => {
+  //   const tooltips = document.querySelectorAll('[data-toggle="tooltip"]');
+  //   tooltips.forEach(elem => elem.tooltip());
+  // }
+
+  $(document).ready(() =>{
+    $('[data-toggle="tooltip"]').tooltip()
+  });
+</script>
 {% endblock %}

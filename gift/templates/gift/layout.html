@@ -6,19 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gift - {% block title %}{% endblock %}</title>
    <!-- Latest compiled and minified CSS -->
-   <link rel="stylesheet" 
-   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" defer>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
   <!-- jQuery library -->
-  <script 
-      src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" defer>
-  </script>
-  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Popper JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
   <!-- Latest compiled JavaScript -->
-  <script 
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" defer>
-  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <link href="{% static 'gift/styles.css' %}" rel="stylesheet">
+
   <!-- <script src="{% static 'gift/search.js' %}" defer></script>
   <script src="{% static 'gift/getCookie.js' %}" defer></script> -->
 </head>
@@ -46,7 +45,7 @@
             <a class="nav-link" href="{% url 'index' %}">Home</a>
           </li>
         </ul>
-        <form class="form-inline my-2" method="post" action="{% url 'github_post' %}">
+        <form class="form-inline my-2" method="post" action="{% url 'index' %}">
           {% csrf_token %}
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search-input" name="username">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search-btn">
@@ -57,11 +56,14 @@
     </nav>
   </nav>
 
-  <div class="main">
+  
     {% block body %}
+    <div class="landing-page">
+      <h5>Landing Page</h5>
+    </div>
     {% endblock %}
     {% block scripts %}
     {% endblock %}
-  </div>
+  
 </body>
 </html>
