@@ -13,18 +13,31 @@
       <div class="profile">
         <img src="{{rep.owner.avatar_url}}" alt="user avatar">
         <div class="profile-info">
-          <div span class="item">repo :
-            <a class="badge badge-dark border border-light p-2" 
+          <div>
+            <!-- <span class="item">repo :</span> -->
+            <a class="btn btn-light btn-sm" 
             href="{{rep.html_url}}" target="_blank">{{rep.full_name}}</a>
           </div>
-          <div><span class="item">user :</span> 
-            <span class="badge badge-dark border border-light p-2">
-              {{rep.owner.login}}</span>
+          <div>
+            <form  action="{% url 'post_user' %}" method="post">
+              {% csrf_token %}
+              <input type="text" name="username" value="{{rep.owner.login}}" hidden>
+              <!-- <span class="item">user :</span> -->
+              <button class="btn btn-light btn-sm px-3 py-0 " type="submit">
+                {{rep.owner.login}}
+              </button>
+            </form>
           </div>
-          <div><span class="item">url :</span>
-            <a class="badge badge-dark border border-light p-2" 
-            href="{{rep.owner.html_url}}" target="_blank">github page</a>
-          </div>
+          <!-- <div>
+            <span class="item">user :</span> 
+            <a class="btn btn-light btn-sm" ">
+              {{rep.owner.login}}</a>
+          </div>  -->
+          <div>
+            <!-- <span class="item">profile :</span> -->
+            <a class="btn btn-light btn-sm" 
+            href="{{rep.owner.html_url}}" target="_blank">github</a>
+          </div> -->
         </div>
         <!-- <form  action="{% url 'post_user' %}" method="post">
           {% csrf_token %}

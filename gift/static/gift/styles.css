@@ -44,7 +44,7 @@ nav .navbar {
   font-size: 18px;
 }
 
-/* Github.html */
+/* user.html */
 
 .profile-wrapper {
   background-color: #7f5a83;
@@ -93,7 +93,7 @@ nav .navbar {
   color: whitesmoke;
 }
 
-/* Repositories */
+/* Repositories from the User */
 
 .repos-wrapper {
   padding: 30px;
@@ -128,7 +128,7 @@ nav .navbar {
   width: 130px;
 }
 
-/* Users */
+/* Users and Repositories */
 
 .user-wrapper .profile {
   background-color: #7f5a83;
@@ -136,6 +136,7 @@ nav .navbar {
   display: flex;
   flex-direction: row;
   margin: 10px;
+  padding: 10px;
 }
 
 .user-wrapper img {

@@ -11,6 +11,9 @@ def index(request):
 
 
 def user_render(request, username):
+    if username.startswith('user:'):
+        prefix, separator, username = username.partition(':')
+        username = username.strip()
     user_resp = getGitUser(username)
     if 'message' in user_resp:
         return render(request, 'gift/error.html',
@@ -35,21 +38,10 @@ def user_post(request):
             return redirect('search_users', query=username)
         elif username.startswith('repo:') or username.startswith('readme') or username.startswith('readme'):
             return redirect('search_repos', query=username)
+        elif username.startswith('user:'):
+            return redirect('user_render', username=username)
         else:
             return redirect('user_render', username=username)
-
-
-def user_get(request, username):
-    user_resp = getGitUser(username)
-    if 'message' in user_resp:
-        return JsonResponse({'error': 'User not found'})
-    elif 'error' in user_resp:
-        return JsonResponse({'error': user_resp['error']})
-    else:
-        repos_resp = getUserRepos(username)
-        repos_resp = formatRep(repos_resp)
-        repos_resp.sort(key=lambda x: x['created_at'], reverse=True)
-        return JsonResponse({'user': user_resp, 'repos': repos_resp})
 
 
 def search_users(request, query):
@@ -69,3 +61,18 @@ def search_repos(request, query):
     repos_resp = getRepos(reponame_, place_)
     # return JsonResponse(repos_resp)
     return render(request, 'gift/repos.html', {'repos': repos_resp})
+
+# this should be useful as an ajax request
+
+
+def user_get(request, username):
+    user_resp = getGitUser(username)
+    if 'message' in user_resp:
+        return JsonResponse({'error': 'User not found'})
+    elif 'error' in user_resp:
+        return JsonResponse({'error': user_resp['error']})
+    else:
+        repos_resp = getUserRepos(username)
+        repos_resp = formatRep(repos_resp)
+        repos_resp.sort(key=lambda x: x['created_at'], reverse=True)
+        return JsonResponse({'user': user_resp, 'repos': repos_resp})

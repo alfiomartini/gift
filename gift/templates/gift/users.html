@@ -13,19 +13,20 @@
       <div class="profile">
         <img src="{{user.avatar_url}}" alt="user avatar">
         <div class="profile-info">
-          <div><span class="item">login :</span> 
-            <span class="badge badge-dark border border-light p-2">{{user.login}}</span>
+          <div>
+            <form  action="{% url 'post_user' %}" method="post">
+              {% csrf_token %}
+              <input type="text" name="username" value="{{user.login}}" hidden>
+              <!-- <span class="item">user :</span> -->
+              <button class="btn btn-light btn-sm px-3 py-0 " type="submit">{{user.login}}</button>
+            </form>
           </div>
-          <div><span class="item mr-3">url :</span>
-            <a class="badge badge-dark border border-light p-2" 
-            href="{{user.html_url}}" target="_blank">github page</a>
+          <div>
+            <!-- <span class="item mr-3">profile :</span> -->
+            <a class="btn btn-light btn-sm px-3 py-0" 
+            href="{{user.html_url}}" target="_blank">github</a>
           </div>
         </div>
-        <form  action="{% url 'post_user' %}" method="post">
-          {% csrf_token %}
-          <input type="text" name="username" value="{{user.login}}" hidden>
-          <button class="btn btn-dark btn-sm border border-light" type="submit">get user</button>
-        </form>
       </div>
     </div>
   {% empty %}
