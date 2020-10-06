@@ -127,6 +127,30 @@ nav .navbar {
 .repos-header span.name {
   width: 130px;
 }
+
+/* Users */
+
+.user-wrapper .profile {
+  background-color: #7f5a83;
+  background-image: linear-gradient(315deg, #7f5a83 0%, #0d324d 74%);
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+}
+
+.user-wrapper img {
+  width: 100px;
+  height: 100px;
+  margin: 20px;
+}
+
+.user-wrapper .profile > div {
+  margin-right: 20px;
+}
+
+.user-wrapper form {
+  margin-top: 20px;
+}
 /* Error */
 
 .alert {

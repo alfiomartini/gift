@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .utils import getGitUser, getUserRepos, formatRep
+from .utils import getUsers
 
 # Create your views here.
 
@@ -22,7 +23,7 @@ def user_render(request, username):
         repos_resp = formatRep(repos_resp)
         repos_resp.sort(key=lambda x: x['created_at'], reverse=True)
         context = {'user': user_resp, 'repos': repos_resp}
-        return render(request, 'gift/github.html', context=context)
+        return render(request, 'gift/user.html', context=context)
 
 
 def user_post(request):
@@ -30,7 +31,10 @@ def user_post(request):
         # get username from form and remove spaces from
         # both ends
         username = request.POST['username'].strip()
-        return redirect('user_render', username=username)
+        if username.startswith('name:') or username.startswith('login:'):
+            return redirect('search_users', query=username)
+        else:
+            return redirect('user_render', username=username)
 
 
 def user_get(request, username):
@@ -44,3 +48,12 @@ def user_get(request, username):
         repos_resp = formatRep(repos_resp)
         repos_resp.sort(key=lambda x: x['created_at'], reverse=True)
         return JsonResponse({'user': user_resp, 'repos': repos_resp})
+
+
+def search_users(request, query):
+    where, sep, username = query.partition(':')
+    # remove trailing or leading spaces
+    where_ = where.strip()
+    username_ = username.strip()
+    users_resp = getUsers(username_, where_)
+    return render(request, 'gift/users.html', {'users': users_resp})

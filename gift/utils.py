@@ -7,6 +7,23 @@ headers = {'Authorization': f"token {GITHUB_TOKEN}",
            'Accept': 'application/vnd.github.v3+json'}
 
 
+def getUsers(username, where):
+    if where == 'name':
+        url = f'https://api.github.com/search/users?q={username}+in:fullname&type=Users'
+    else:  # where == 'login
+        url = f'https://api.github.com/search/users?q={username}+in:login&type=Users'
+    try:
+        json_resp = requests.get(url, headers=headers)
+        print(json_resp)
+        # json_resp -> python dictionary
+        resp = json_resp.json()
+    except:
+        resp = {
+            'error': 'Sorry, there was a problem with this request. Try again later.'}
+
+    return resp
+
+
 def getGitUser(username):
     url = f'https://api.github.com/users/{username}'
     try:
