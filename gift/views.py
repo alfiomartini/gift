@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .utils import getGitUser, getUserRepos, formatRep
-from .utils import getUsers
+from .utils import getUsers, getRepos
 
 # Create your views here.
 
@@ -33,6 +33,8 @@ def user_post(request):
         username = request.POST['username'].strip()
         if username.startswith('name:') or username.startswith('login:'):
             return redirect('search_users', query=username)
+        elif username.startswith('repo:') or username.startswith('readme') or username.startswith('readme'):
+            return redirect('search_repos', query=username)
         else:
             return redirect('user_render', username=username)
 
@@ -51,9 +53,19 @@ def user_get(request, username):
 
 
 def search_users(request, query):
-    where, sep, username = query.partition(':')
+    place, sep, username = query.partition(':')
     # remove trailing or leading spaces
-    where_ = where.strip()
+    place_ = place.strip()
     username_ = username.strip()
-    users_resp = getUsers(username_, where_)
+    users_resp = getUsers(username_, place_)
     return render(request, 'gift/users.html', {'users': users_resp})
+
+
+def search_repos(request, query):
+    place, sep, reponame = query.partition(':')
+    # remove trailing or leading spaces
+    place_ = place.strip()
+    reponame_ = reponame.strip()
+    repos_resp = getRepos(reponame_, place_)
+    # return JsonResponse(repos_resp)
+    return render(request, 'gift/repos.html', {'repos': repos_resp})

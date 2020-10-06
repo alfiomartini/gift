@@ -1,0 +1,38 @@
+
+{% extends "gift/layout.html" %}
+
+{% block title %}
+    Users
+{% endblock %}
+
+{% load static %}
+
+{% block body %}
+  {% for rep in repos.items %}
+    <div class="user-wrapper">
+      <div class="profile">
+        <img src="{{rep.owner.avatar_url}}" alt="user avatar">
+        <div class="profile-info">
+          <div span class="item">repo :
+            <a class="badge badge-dark border border-light p-2" 
+            href="{{rep.html_url}}" target="_blank">{{rep.full_name}}</a>
+          </div>
+          <div><span class="item">user :</span> 
+            <span class="badge badge-dark border border-light p-2">
+              {{rep.owner.login}}</span>
+          </div>
+          <div><span class="item">url :</span>
+            <a class="badge badge-dark border border-light p-2" 
+            href="{{rep.owner.html_url}}" target="_blank">github page</a>
+          </div>
+        </div>
+        <!-- <form  action="{% url 'post_user' %}" method="post">
+          {% csrf_token %}
+          <input type="text" name="username" value="{{user.login}}" hidden>
+          <button class="btn btn-primary btn-sm" type="submit">get user</button>
+        </form> -->
+      </div>
+    </div>
+  {% empty %}
+  {% endfor %}
+{%endblock %}
