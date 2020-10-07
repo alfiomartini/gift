@@ -36,7 +36,7 @@ def user_post(request):
         username = request.POST['username'].strip()
         if username.startswith('name:') or username.startswith('login:'):
             return redirect('search_users', query=username)
-        elif username.startswith('repo:') or username.startswith('readme') or username.startswith('readme'):
+        elif username.startswith('repo:') or username.startswith('readme') or username.startswith('description'):
             return redirect('search_repos', query=username)
         elif username.startswith('user:'):
             return redirect('user_render', username=username)

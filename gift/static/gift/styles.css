@@ -44,6 +44,9 @@ nav .navbar {
   font-size: 18px;
 }
 
+#find-select {
+  cursor: pointer;
+}
 /* user.html */
 
 .profile-wrapper {

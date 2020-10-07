@@ -18,8 +18,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <link href="{% static 'gift/styles.css' %}" rel="stylesheet">
 
-  <!-- <script src="{% static 'gift/search.js' %}" defer></script>
-  <script src="{% static 'gift/getCookie.js' %}" defer></script> -->
+  <script src="{% static 'gift/search.js' %}" defer></script>
+  <!-- <script src="{% static 'gift/getCookie.js' %}" defer></script>  -->
 </head>
 <style>
   /* body {
@@ -45,6 +45,17 @@
             <a class="nav-link" href="{% url 'index' %}">Home</a>
           </li>
         </ul>
+        <form action="" class="form-inline mr-3">
+          <select class="custom-select bg-dark text-light" id="find-select">
+            <option selected>Find...</option>
+            <option value="user:">User</option>
+            <option value="name:">Users/name</option>
+            <option value="login:">Users/login</option>
+            <option value="repo:">Rep/name</option>
+            <option value="readme:">Rep/readme</option>
+            <option value="description:">Rep/description</option>
+          </select>
+        </form>
         <form class="form-inline my-2" method="post" action="{% url 'post_user' %}">
           {% csrf_token %}
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search-input" name="username" required>
