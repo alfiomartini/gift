@@ -113,7 +113,7 @@ nav .navbar {
   font-variant: small-caps;
 }
 
-.repos-wrapper li,
+.repos-wrapper ul li,
 .repos-header {
   padding: 10px;
   display: flex;
@@ -121,16 +121,20 @@ nav .navbar {
   justify-content: space-around;
 }
 
-.repos-wrapper ul li .badge,
-.repos-header span.badge {
+.repos-header > span,
+.repos-wrapper ul li span {
   width: 100px;
 }
 
-.repos-wrapper li a.badge,
-.repos-header span.name {
+.repos-wrapper ul li div a,
+.repos-header > span.name {
   width: 130px;
 }
 
+.repos-wrapper ul .star {
+  display: flex;
+  justify-content: center;
+}
 /* Users and Repositories */
 
 .user-wrapper .profile {
@@ -138,6 +142,7 @@ nav .navbar {
   background-image: linear-gradient(315deg, #7f5a83 0%, #0d324d 74%);
   display: flex;
   flex-direction: row;
+  align-items: center;
   margin: 10px;
   padding: 10px;
 }

@@ -9,11 +9,11 @@ headers = {'Authorization': f"token {GITHUB_TOKEN}",
 
 def getRepos(reponame, place):
     if place == 'repo':
-        url = f'https://api.github.com/search/repositories?q={reponame}+in:name&type=Repositories&per_page=100'
+        url = f'https://api.github.com/search/repositories?q={reponame}+in:name&type=Repositories&per_page=100&sort=stars&order=desc'
     elif place == 'readme':
-        url = f'https://api.github.com/search/repositories?q={reponame}+in:readme&type=Repositories&per_page=100'
+        url = f'https://api.github.com/search/repositories?q={reponame}+in:readme&type=Repositories&per_page=100&sort=stars&order=desc'
     else:  # place == description
-        url = f'https://api.github.com/search/repositories?q={reponame}+in:description&type=Repositories&per_page=100'
+        url = f'https://api.github.com/search/repositories?q={reponame}+in:description&type=Repositories&per_page=100&sort=stars&order=desc'
     try:
         json_resp = requests.get(url, headers=headers)
         print(json_resp)

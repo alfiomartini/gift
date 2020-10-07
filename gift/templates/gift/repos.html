@@ -16,7 +16,10 @@
           <div>
             <!-- <span class="item">repo :</span> -->
             <a class="btn btn-light btn-sm" 
-            href="{{rep.html_url}}" target="_blank">{{rep.full_name}}</a>
+            href="{{rep.html_url}}" target="_blank">{{rep.full_name}}
+            </a>
+            <span class="star text-white mx-1">&#9734;</span>
+            <span class="star-counter text-white">{{rep.stargazers_count}}</span>
           </div>
           <div>
             <form  action="{% url 'post_user' %}" method="post">
@@ -28,22 +31,12 @@
               </button>
             </form>
           </div>
-          <!-- <div>
-            <span class="item">user :</span> 
-            <a class="btn btn-light btn-sm" ">
-              {{rep.owner.login}}</a>
-          </div>  -->
           <div>
             <!-- <span class="item">profile :</span> -->
             <a class="btn btn-light btn-sm" 
             href="{{rep.owner.html_url}}" target="_blank">github</a>
-          </div> -->
+          </div>
         </div>
-        <!-- <form  action="{% url 'post_user' %}" method="post">
-          {% csrf_token %}
-          <input type="text" name="username" value="{{user.login}}" hidden>
-          <button class="btn btn-primary btn-sm" type="submit">get user</button>
-        </form> -->
       </div>
     </div>
   {% empty %}
