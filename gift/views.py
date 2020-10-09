@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .utils import getGitUser, getUserRepos, formatRep
-from .utils import getUsers, getRepos
+from .utils import getUsers, getRepos, buildPaging
 from .models import GitRequest
 
 # Create your views here.
@@ -9,11 +9,12 @@ from .models import GitRequest
 
 def index(request):
     api_requests = GitRequest.objects.all()
-    print('api requests', api_requests)
+    # print('api requests', api_requests)
     return render(request, 'gift/layout.html', {})
 
 
 def user_render(request, username):
+    current_page = request.GET.get('page', 1)
     if username.startswith('user:'):
         prefix, separator, username = username.partition(':')
         username = username.strip()
@@ -28,11 +29,15 @@ def user_render(request, username):
         return render(request, 'gift/error.html',
                       {'message': user_resp['error']})
     else:
-        repos_resp = getUserRepos(username)
+        json_resp, repos_resp = getUserRepos(username, current_page)
+        print('resp links', json_resp.links)
+        links = json_resp.links
+        paging = buildPaging(links, current_page)
+        print('paging', paging)
         repos_resp = formatRep(repos_resp)
         repos_resp.sort(key=lambda x: x['created_at'], reverse=True)
         GitRequest.objects.create(request_text=request_text, req_type='user')
-        context = {'user': user_resp, 'repos': repos_resp}
+        context = {'user': user_resp, 'repos': repos_resp, 'paging': paging}
         return render(request, 'gift/user.html', context=context)
 
 
@@ -52,26 +57,38 @@ def user_post(request):
 
 
 def search_users(request, query):
+    current_page = request.GET.get('page', 1)
     place, sep, username = query.partition(':')
     # remove trailing or leading spaces
     place_ = place.strip()
     username_ = username.strip()
     request_text = place_ + sep + username_
-    users_resp = getUsers(username_, place_)
+    json_resp, users_resp = getUsers(username_, place_, current_page)
+    links = json_resp.links
+    paging = buildPaging(links, current_page)
+    print('paging', paging)
     GitRequest.objects.create(request_text=request_text, req_type=place_)
-    return render(request, 'gift/users.html', {'users': users_resp})
+    return render(request, 'gift/users.html', {'users': users_resp,
+                                               'paging': paging})
 
 
 def search_repos(request, query):
+    current_page = request.GET.get('page', 1)
     place, sep, reponame = query.partition(':')
     # remove trailing or leading spaces
     place_ = place.strip()
     reponame_ = reponame.strip()
     request_text = place_ + sep + reponame_
-    repos_resp = getRepos(reponame_, place_)
+    json_resp, repos_resp = getRepos(reponame_, place_, current_page)
+    # print('resp headesr', json_resp.headers)
+    # print('resp links', json_resp.links)
+    links = json_resp.links
+    paging = buildPaging(links, current_page)
+    print('paging', paging)
     GitRequest.objects.create(request_text=request_text, req_type=place_)
     # return JsonResponse(repos_resp)
-    return render(request, 'gift/repos.html', {'repos': repos_resp})
+    return render(request, 'gift/repos.html', {'repos': repos_resp,
+                                               'paging': paging})
 
 # this should be useful as an ajax request
 

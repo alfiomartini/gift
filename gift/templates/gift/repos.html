@@ -41,4 +41,33 @@
     </div>
   {% empty %}
   {% endfor %}
+
+  {% if paging.has_other_pages %}
+  <ul class="pagination justify-content-center mt-3 mb-3">
+    <li class="page-item">
+      <a class="page-link" href="?page=1">1</a>
+    </li>
+    {% if paging.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{paging.prev }}">Previous
+      </a>
+    </li>
+    {% else %}
+    <li class="page-item disabled"><span class="page-link">Previous</span></li>
+    {% endif %}
+    <li class="page-item active">
+      <span class="page-link">{{ paging.current }}</span>
+    </li>
+    {% if paging.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ paging.next}}">Next</a>
+    </li>
+    {% else %}
+    <li class="page-item" class="disabled"><span class="page-link">Next</span></li>
+    {% endif %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{paging.last_page}}">{{paging.last_page}}</a>
+    </li>
+  </ul>
+{% endif %}
 {%endblock %}
