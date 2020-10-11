@@ -83,7 +83,7 @@ nav .navbar {
 .github .profile {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .github .profile-wrapper,

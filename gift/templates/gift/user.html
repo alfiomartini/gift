@@ -39,10 +39,11 @@
             <span class="badge badge-dark border border-light p-2 mb-2">biography</span>
           </div>
           {% if user.bio %}
-          {{user.bio}}
+          {{user.bio|slice:"0:160"}}
           {% else %}
           unknown
           {% endif %}
+          <div class="mt-2">{{user.location}}</div>
         </div>
         <div class="profile-followers">
           <div>
@@ -52,6 +53,14 @@
           <div>
             <span class="badge badge-dark border border-light p-2 follow mr-2">Following</span>
             {{user.following}}
+          </div>
+          <div>
+            <span class="badge badge-dark border border-light p-2 follow mr-2">Hireable</span>
+            {% if user.hireable %}
+              Yes
+            {% else %}
+              ?
+            {% endif %}
           </div>
           <!-- <div>
             <span class="badge badge-dark border border-light p-2 follow mr-2">Public Rep.</span>
@@ -129,14 +138,4 @@
   {% endif %}
 {% endblock %}
 {% block scripts %}
-<script>
-  // document.onload = () => {
-  //   const tooltips = document.querySelectorAll('[data-toggle="tooltip"]');
-  //   tooltips.forEach(elem => elem.tooltip());
-  // }
-
-  $(document).ready(() =>{
-    $('[data-toggle="tooltip"]').tooltip()
-  });
-</script>
 {% endblock %}
