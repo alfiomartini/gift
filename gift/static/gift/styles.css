@@ -171,11 +171,12 @@ nav .navbar {
 }
 /* Error */
 
-.alert {
+.error {
   color: black;
   font-variant: small-caps;
   font-weight: bold;
   text-align: center;
+  margin: 10px;
 }
 
 /* Media queries */
@@ -210,9 +211,10 @@ nav .navbar {
 /* @media (max-width: 400px) {
   .profile-info {
     display: none;
-  } */
+  } 
 
   .repos-wrapper .repo-cre {
     display: none;
   }
 }
+*/
