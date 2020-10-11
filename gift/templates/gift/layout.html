@@ -20,31 +20,31 @@
 
   <script src="{% static 'gift/search.js' %}" defer></script>
   <script src="{% static 'gift/getCookie.js' %}" defer></script> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" defer>
+  <link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed&display=swap" rel="stylesheet" defer>
+  <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet" defer>
   <!-- <script src="{% static 'gift/pagination.js' %}" defer></script> -->
+  {% block styles %}
+  {% endblock %}
 </head>
-<style>
-  /* body {
-    background-image: url("{% static 'gift/img/yancy-min-github-unsplash-1400-900-min.jpg'%}");
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    background-attachment: fixed;
-    height: 100vh;
-  } */
-</style>
 <body>
   <nav>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <a class="navbar-brand" href="{% url 'index' %}">Gift</a>
+      <i class="fab fa-github-square fa-3x text-white p-2 mr-2"></i>
+      <a class="navbar-brand" href="{% url 'index' %}">
+        <span class="brand">G</span>
+        <span class="brand">i</span>
+        <span class="brand">f</span>
+        <span class="brand">t</span></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse"     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
     
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="{% url 'index' %}">Home</a>
-          </li>
+          </li> -->
         </ul>
         <form action="" class="form-inline mr-3">
           <select class="custom-select bg-dark text-light" id="find-select">
@@ -68,15 +68,11 @@
       </div>
     </nav>
   </nav>
-
-  
+  <div class="main">
     {% block body %}
-    <div class="landing-page">
-      <h5>Landing Page</h5>
-    </div>
     {% endblock %}
     {% block scripts %}
     {% endblock %}
-  
+  </div>
 </body>
 </html>

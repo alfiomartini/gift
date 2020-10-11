@@ -11,7 +11,7 @@ import json
 def index(request):
     api_requests = GitRequest.objects.all()
     # print('api requests', api_requests)
-    return render(request, 'gift/layout.html', {})
+    return render(request, 'gift/index.html', {})
 
 
 def user_render(request, username):
