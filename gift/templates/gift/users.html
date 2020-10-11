@@ -9,7 +9,8 @@
 
 {% block body %}
   <div class="heading">Users found</div>
-  {% for user in users.items %}
+  <div class="users-list mt-3">
+    {% for user in users.items %}
     <div class="user-wrapper">
       <div class="profile">
         <img src="{{user.avatar_url}}" alt="user avatar">
@@ -30,9 +31,10 @@
         </div>
       </div>
     </div>
-  {% empty %}
-  {% endfor %}
-
+    {% empty %}
+    {% endfor %}
+  </div>
+  
   {% if paging.has_other_pages %}
   <ul class="pagination justify-content-center mt-3 mb-3">
     <li class="page-item">

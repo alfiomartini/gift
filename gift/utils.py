@@ -10,11 +10,11 @@ headers = {'Authorization': f"token {GITHUB_TOKEN}",
 
 def getRepos(reponame, place, page):
     if place == 'repo':
-        url = f'https://api.github.com/search/repositories?q={reponame}+in:name&type=Repositories&page={page}&per_page=30&sort=stars&order=desc'
+        url = f'https://api.github.com/search/repositories?q={reponame}+in:name&type=Repositories&page={page}&per_page=60&sort=stars&order=desc'
     elif place == 'readme':
-        url = f'https://api.github.com/search/repositories?q={reponame}+in:readme&type=Repositories&page={page}&per_page=30&sort=stars&order=desc'
+        url = f'https://api.github.com/search/repositories?q={reponame}+in:readme&type=Repositories&page={page}&per_page=60&sort=stars&order=desc'
     else:  # place == description
-        url = f'https://api.github.com/search/repositories?q={reponame}+in:description&type=Repositories&page={page}&per_page=30&sort=stars&order=desc'
+        url = f'https://api.github.com/search/repositories?q={reponame}+in:description&type=Repositories&page={page}&per_page=60&sort=stars&order=desc'
     try:
         json_resp = requests.get(url, headers=headers)
         # print('headers', json_resp.headers)
@@ -30,9 +30,9 @@ def getRepos(reponame, place, page):
 
 def getUsers(username, place, page):
     if place == 'name':
-        url = f'https://api.github.com/search/users?q={username}+in:fullname&type=Users&page={page}&per_page=30'
+        url = f'https://api.github.com/search/users?q={username}+in:fullname&type=Users&page={page}&per_page=60'
     else:  # place == 'login
-        url = f'https://api.github.com/search/users?q={username}+in:login&type=Users&page={page}&per_page=30'
+        url = f'https://api.github.com/search/users?q={username}+in:login&type=Users&page={page}&per_page=60'
     try:
         json_resp = requests.get(url, headers=headers)
         # json_resp -> python dictionary

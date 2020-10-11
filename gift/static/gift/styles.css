@@ -20,7 +20,7 @@ nav .navbar {
 nav .navbar-brand {
   /* font-family: "Sansita Swashed", cursive; */
   font-family: "Shadows Into Light", cursive;
-  font-size: 30px;
+  font-size: 32px;
 }
 
 nav .navbar-brand .brand {
@@ -84,6 +84,11 @@ nav .navbar {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.github .profile-wrapper,
+.github .repos-wrapper {
+  border-radius: 10px;
 }
 
 .github .profile img {
@@ -181,6 +186,26 @@ nav .navbar {
 
 .user-wrapper form {
   margin-top: 20px;
+}
+
+/* Repositories */
+
+.repo-list,
+.users-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.repo-list .profile {
+  width: 460px;
+  border-radius: 10px;
+}
+
+.users-list .profile {
+  width: 460px;
+  border-radius: 10px;
 }
 /* Error */
 

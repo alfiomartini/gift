@@ -9,7 +9,8 @@
 
 {% block body %}
   <div class="heading">Repositories found</div>
-  {% for rep in repos.items %}
+  <div class="repo-list mt-3">
+    {% for rep in repos.items %}
     <div class="user-wrapper">
       <div class="profile">
         <img src="{{rep.owner.avatar_url}}" alt="user avatar">
@@ -17,7 +18,7 @@
           <div>
             <!-- <span class="item">repo :</span> -->
             <a class="btn btn-light btn-sm" 
-            href="{{rep.html_url}}" target="_blank">{{rep.full_name}}
+            href="{{rep.html_url}}" target="_blank">{{rep.name|slice:"0:25"}}
             </a>
             <span class="star text-white mx-1">&#9734;</span>
             <span class="star-counter text-white">{{rep.stargazers_count}}</span>
@@ -40,8 +41,9 @@
         </div>
       </div>
     </div>
-  {% empty %}
-  {% endfor %}
+    {% empty %}
+    {% endfor %}
+  </div>
 
   {% if paging.has_other_pages %}
   <ul class="pagination justify-content-center mt-3 mb-3">
