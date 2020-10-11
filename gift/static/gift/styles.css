@@ -21,6 +21,14 @@ nav .navbar {
   margin: 0;
 }
 
+.heading {
+  color: whitesmoke;
+  background-color: black;
+  font-variant: small-caps;
+  text-align: center;
+  margin: 0px 10px;
+  padding: 10px;
+}
 /* Landing Page */
 
 .landing-page {
@@ -168,4 +176,43 @@ nav .navbar {
   font-variant: small-caps;
   font-weight: bold;
   text-align: center;
+}
+
+/* Media queries */
+
+@media (max-width: 1000px) {
+  .profile-bio {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .repos-wrapper .repo-des,
+  .repos-wrapper .repo-upd {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .profile-followers {
+    display: none;
+  }
+}
+
+@media (max-width: 470px) {
+  .repos-wrapper .star,
+  .repos-wrapper span.star,
+  .profile img {
+    display: none;
+  }
+}
+
+/* @media (max-width: 400px) {
+  .profile-info {
+    display: none;
+  } */
+
+  .repos-wrapper .repo-cre {
+    display: none;
+  }
 }

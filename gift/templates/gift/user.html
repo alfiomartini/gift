@@ -19,7 +19,7 @@
             <span class="badge badge-dark border border-light p-2">{{user.login}}</span>
           </div>
           {% if user.email %}
-          <div>
+          <div id="user-email">
             <!-- <span class="item"> email :</span>  -->
             <span class="badge badge-dark border border-light p-2">{{user.email}}</span>
           </div>
@@ -64,10 +64,10 @@
       <h4 class="repos-heading mb-3">Public Repositories - {{user.public_repos}}</h4>
       <div class="repos-header">
         <span class="badge badge-dark p-2 name">Name </span>
-        <span class="badge badge-dark p-2 stars">Stars </span>
-        <span class="badge badge-dark p-2">Description</span>
-        <span class="badge badge-dark p-2">Created</span>
-        <span class="badge badge-dark p-2">Updated</span>
+        <span class="badge badge-dark p-2 star">Stars </span>
+        <span class="badge badge-dark p-2 repo-des">Description</span>
+        <span class="badge badge-dark p-2 repo-cre">Created</span>
+        <span class="badge badge-dark p-2 repo-upd">Updated</span>
       </div>
       <ul class="repos">
         {% for rep in repos %}
@@ -85,13 +85,13 @@
             </div>
           </span>
           {% if rep.description %}
-          <span class="badge badge-secondary p-2 " data-toggle="tooltip"
+          <span class="badge badge-secondary p-2  repo-des" data-toggle="tooltip"
           title="{{rep.description}}">about</span>
           {% else %}
-          <span class="badge badge-secondary p-2">unknown</span>
+          <span class="badge badge-secondary p-2 repo-des">unknown</span>
           {% endif %}
-          <span class="badge badge-info p-2">{{rep.created_at|date:"M d, Y"}}</span>
-          <span class="badge badge-info p-2">{{rep.updated_at|date:"M d, Y"}}</span>
+          <span class="badge badge-info p-2 repo-cre">{{rep.created_at|date:"M d, Y"}}</span>
+          <span class="badge badge-info p-2 repo-upd">{{rep.updated_at|date:"M d, Y"}}</span>
         </li>
         {% endif %}
       {% empty %}
