@@ -53,7 +53,7 @@ def getGitUser(username):
     except:
         resp = {
             'error': 'Sorry, there was a problem with this request. Try again later.'}
-
+    print('resp', resp)
     return resp
 
 
@@ -93,23 +93,29 @@ def formatRep(rep_object):
 
 def buildPaging(links, current_page):
     has_previous, has_other_pages, has_next = False, False, False
+    # print('links', links)
     paging = {}
-    for key in links:
-        page = int(parse_qs(urlparse(links[key]['url'])[4])['page'][0])
-        paging[key] = page
-    if 'next' in paging:
-        has_next = True
-    if 'next' in links or 'prev' in links:
-        has_other_pages = True
-    if 'prev' in paging:
-        has_previous = True
-    paging['has_previous'] = has_previous
-    paging['has_other_pages'] = has_other_pages
-    paging['has_next'] = has_next
-    paging['current'] = current_page
-    if not has_next:
-        paging['last_page'] = paging['prev'] + 1
-    else:
-        paging['last_page'] = paging['last']
+    if links:
+        for key in links:
+            page = int(parse_qs(urlparse(links[key]['url'])[4])['page'][0])
+            paging[key] = page
+        # if current_page < 1:
+        #     current_page = 1
+        # if current_page > paging['last']:
+        #     current_page = paging['last']
+        if 'next' in paging:
+            has_next = True
+        if 'next' in links or 'prev' in links:
+            has_other_pages = True
+        if 'prev' in paging:
+            has_previous = True
+        paging['has_previous'] = has_previous
+        paging['has_other_pages'] = has_other_pages
+        paging['has_next'] = has_next
+        paging['current'] = current_page
+        if not has_next:
+            paging['last_page'] = paging['prev'] + 1
+        else:
+            paging['last_page'] = paging['last']
 
     return paging
