@@ -66,11 +66,11 @@ def search_users(request, query):
     username_ = username.strip()
     request_text = place_ + sep + username_
     json_resp, users_resp = getUsers(username_, place_, current_page)
-    print('users resp', users_resp)
+    # print('users resp', users_resp)
     if users_resp['total_count'] > 0:
         links = json_resp.links
         paging = buildPaging(links, current_page)
-        print('paging', paging)
+        # print('paging', paging)
         GitRequest.objects.create(request_text=request_text, req_type=place_)
         return render(request, 'gift/users.html', {'users': users_resp,
                                                    'paging': paging})
@@ -92,7 +92,7 @@ def search_repos(request, query):
         # print('resp links', json_resp.links)
         links = json_resp.links
         paging = buildPaging(links, current_page)
-        print('paging', paging)
+        # print('paging', paging)
         GitRequest.objects.create(request_text=request_text, req_type=place_)
         # return JsonResponse(repos_resp)
         return render(request, 'gift/repos.html', {'repos': repos_resp,

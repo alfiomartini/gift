@@ -117,8 +117,12 @@ nav .navbar {
   margin-left: 20px;
   overflow: hidden;
   text-align: justify;
+  font-variant: small-caps;
 }
 
+.profile .location {
+  font-variant: small-caps;
+}
 .profile-followers {
   color: whitesmoke;
 }

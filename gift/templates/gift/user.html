@@ -34,17 +34,29 @@
             href="{{user.html_url}}" target="_blank">github</a>
           </div>
         </div>
+        {% if user.bio or user.location or user.company %}
         <div class="profile-bio">
+          {% if user.bio %}
           <div>
             <span class="badge badge-dark border border-light p-2 mb-2">biography</span>
           </div>
-          {% if user.bio %}
-          {{user.bio|slice:"0:160"}}
-          {% else %}
-          unknown
+            {{user.bio|slice:"0:150"}}
           {% endif %}
-          <div class="mt-2">{{user.location}}</div>
+          {% if user.location %}
+          <div class="mt-2 location">
+            {{user.location}}
+          </div>
+          {% endif %}
+          {% if user.company %}
+          <div>
+            <span class="badge badge-dark border border-light p-2 follow mr-2 mt-3">
+              Company
+            </span>
+              {{user.company}}
+          </div>
+          {% endif %}
         </div>
+        {% endif %}
         <div class="profile-followers">
           <div>
             <span class="badge badge-dark border border-light p-2 follow mr-2">Followers</span>
