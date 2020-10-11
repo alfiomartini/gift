@@ -105,6 +105,25 @@ def search_repos(request, query):
 # this should be useful as an ajax request
 
 
+def user_repos(request, username):
+    current_page = int(request.GET.get('page', 1))
+    if username.startswith('user:'):
+        prefix, separator, username = username.partition(':')
+        username = username.strip()
+        request_text = prefix + separator + username
+    else:
+        request_text = 'user:' + username
+    json_resp, repos_resp = getUserRepos(username, current_page)
+    links = json_resp.links
+    paging = buildPaging(links, current_page)
+    # print('paging', paging)
+    repos_resp = formatRep(repos_resp)
+    repos_resp.sort(key=lambda x: x['created_at'], reverse=True)
+    GitRequest.objects.create(request_text=request_text, req_type='user')
+    context = {'repos': repos_resp, 'paging': paging}
+    return render(request, 'gift/user_repos.html', context=context)
+
+
 def user_get(request, username):
     user_resp = getGitUser(username)
     if 'message' in user_resp:

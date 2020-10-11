@@ -53,10 +53,10 @@
             <span class="badge badge-dark border border-light p-2 follow mr-2">Following</span>
             {{user.following}}
           </div>
-          <div>
+          <!-- <div>
             <span class="badge badge-dark border border-light p-2 follow mr-2">Public Rep.</span>
             {{user.public_repos}}
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -102,11 +102,11 @@
   {% if paging.has_other_pages %}
   <ul class="pagination justify-content-center mt-3 mb-3">
     <li class="page-item">
-      <a class="page-link" href="?page=1">1</a>
+      <a class="page-link page-btn" href="?page=1">1</a>
     </li>
     {% if paging.has_previous %}
     <li class="page-item">
-      <a class="page-link" href="?page={{paging.prev }}">Previous
+      <a class="page-link page-btn" href="?page={{paging.prev }}">Previous
       </a>
     </li>
     {% else %}
@@ -117,13 +117,13 @@
     </li>
     {% if paging.has_next %}
     <li class="page-item">
-      <a class="page-link" href="?page={{ paging.next}}">Next</a>
+      <a class="page-link page-btn" href="?page={{ paging.next}}">Next</a>
     </li>
     {% else %}
     <li class="page-item" class="disabled"><span class="page-link">Next</span></li>
     {% endif %}
     <li class="page-item">
-      <a class="page-link" href="?page={{paging.last_page}}">{{paging.last_page}}</a>
+      <a class="page-link page-btn" href="?page={{paging.last_page}}">{{paging.last_page}}</a>
     </li>
   </ul>
   {% endif %}

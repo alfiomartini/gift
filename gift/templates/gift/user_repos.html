@@ -1,0 +1,37 @@
+
+  <h4 class="repos-heading mb-3">Public Repositories - {{user.public_repos}}</h4>
+  <div class="repos-header">
+    <span class="badge badge-dark p-2 name">Name </span>
+    <span class="badge badge-dark p-2 stars">Stars </span>
+    <span class="badge badge-dark p-2">Description</span>
+    <span class="badge badge-dark p-2">Created</span>
+    <span class="badge badge-dark p-2">Updated</span>
+  </div>
+  <ul class="repos">
+    {% for rep in repos %}
+    {% if not repos.private %}
+    <li>
+      <div class="name">
+        <a class="badge badge-primary p-2 name" href="{{rep.html_url}} " target="_blank">
+          {{rep.name}}
+        </a>
+      </div>
+      <span class="star">
+        <div>
+          <span class="">&#9733;</span>
+          <span class="text-dark">{{rep.stargazers_count}}</span>
+        </div>
+      </span>
+      {% if rep.description %}
+      <span class="badge badge-secondary p-2 " data-toggle="tooltip"
+      title="{{rep.description}}">about</span>
+      {% else %}
+      <span class="badge badge-secondary p-2">unknown</span>
+      {% endif %}
+      <span class="badge badge-info p-2">{{rep.created_at|date:"M d, Y"}}</span>
+      <span class="badge badge-info p-2">{{rep.updated_at|date:"M d, Y"}}</span>
+    </li>
+    {% endif %}
+  {% empty %}
+  {% endfor %}
+  </ul>
