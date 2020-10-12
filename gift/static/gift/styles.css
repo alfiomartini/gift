@@ -27,6 +27,10 @@ nav .navbar-brand .brand {
   margin-right: 0px;
 }
 
+nav .navbar form input {
+  width: 250px !important;
+}
+
 /* Spinner */
 .spinner {
   margin-top: 100px;
@@ -48,14 +52,36 @@ nav .navbar-brand .brand {
   margin: 100px auto;
   width: 500px;
   height: 400px;
-  background-color: darkblue;
-  color: lightgreen;
+  background-color: #252129;
+  color: whitesmoke;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-radius: 10px;
 }
-/* navbar */
 
+.landing-page ul {
+  list-style: none;
+}
+
+.landing-page input {
+  padding: 2px 2px 4px 4px;
+  border-radius: 5px;
+  width: 250px;
+}
+
+.landing-page button {
+  padding: 5px 10px;
+}
+
+.landing-page h5 {
+  font-variant: small-caps;
+  margin-bottom: 20px;
+  margin-top: -20px;
+}
+
+/* navbar */
 nav {
   margin: 10px 10px;
 }

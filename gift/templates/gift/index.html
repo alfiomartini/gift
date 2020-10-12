@@ -20,6 +20,70 @@
 {% endblock %}
 {% block body %}
   <div class="landing-page">
-    <h5>Landing Page</h5>
+    <h5>Examples</h5>
+    <ul>
+      <li>
+        <form action="{% url 'post_user' %}" method="post">
+          {% csrf_token %}
+          <input class="mr-2" type="search"   
+          name="username" value="user:alfiomartini" required
+          data-toggle="tooltip" title="Match user with login 
+          'alfiomartini'">
+          <button class="btn btn-outline-success btn-sm my-2 " 
+          type="submit">try it</button>
+        </form>
+      </li>
+      <li>
+        <form action="{% url 'post_user' %}" method="post">
+          {% csrf_token %}
+          <input class="mr-2" type="search" name="username" 
+          value="name:paola" required data-toggle="tooltip"
+          title="Match users with 'paola' in their name">
+          <button class="btn btn-outline-success btn-sm my-2 " 
+          type="submit">try it</button>
+        </form>
+      </li>
+      <li>
+        <form action="{% url 'post_user' %}" method="post">
+          {% csrf_token %}
+          <input class="mr-2" type="search"  name="username" 
+          value="login:adam" required data-toggle="tooltip"
+          title="Match user with 'adam' in their login">
+          <button class="btn btn-outline-success btn-sm my-2 " 
+          type="submit">try it</button>
+        </form>
+      </li>
+      <li>
+        <form action="{% url 'post_user' %}" method="post">
+          {% csrf_token %}
+          <input class="mr-2" type="search"  name="username" 
+          value="repo:isabelle" required data-toggle="tooltip"
+          title="Match repositories with 'isabelle' in their name">
+          <button class="btn btn-outline-success btn-sm my-2" 
+          type="submit">try it</button>
+        </form>
+      </li>
+      <li>
+        <form action="{% url 'post_user' %}" method="post">
+          {% csrf_token %}
+          <input class="mr-2" type="search"  name="username" 
+          value="readme:react javascript" required data-toggle="tooltip"
+          title="Match repositories with 'react' and 'javascript' in their
+          README">
+          <button class="btn btn-outline-success btn-sm my-2" type="submit">
+          try it</button>
+        </form>
+      </li>
+      <li>
+        <form action="{% url 'post_user' %}" method="post">
+          {% csrf_token %}
+          <input class="mr-2" type="search"  name="username" 
+          value="description:django web" required data-toggle="tooltip"
+          title="Match repositories with 'django' and 'web' in their description">
+          <button class="btn btn-outline-success btn-sm my-2" type="submit">try it
+          </button>
+        </form>
+      </li>
+    </ul>
   </div>
 {% endblock %}

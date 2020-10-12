@@ -20,7 +20,8 @@
               {% csrf_token %}
               <input type="text" name="username" value="{{user.login}}" hidden>
               <!-- <span class="item">user :</span> -->
-              <button class="btn btn-light btn-sm px-3 py-0 " type="submit">{{user.login}}</button>
+              <button class="btn btn-light btn-sm px-3 py-0 " type="submit"
+              data-toggle = "tooltip" title="Gift Profile">{{user.login}}</button>
             </form>
           </div>
           <div>
