@@ -10,7 +10,18 @@ import json
 
 def index(request):
     api_requests = GitRequest.objects.all()
-    # print('api requests', api_requests)
+    print(api_requests)
+    num_requests = GitRequest.objects.all().count()
+    user_searches = GitRequest.objects.filter(req_type='user').count()
+    users_name = GitRequest.objects.filter(req_type='name').count()
+    users_login = GitRequest.objects.filter(req_type='login').count()
+    reps_name = GitRequest.objects.filter(req_type='repo').count()
+    reps_readme = GitRequest.objects.filter(req_type='readme').count()
+    reps_desc = GitRequest.objects.filter(req_type='description').count()
+    sum_cats = user_searches + users_name + users_login + reps_name
+    + reps_readme + reps_desc
+    print('num requests', num_requests)
+    print('sum by cats', sum_cats)
     return render(request, 'gift/index.html', {})
 
 
@@ -37,6 +48,7 @@ def user_render(request, username):
         paging = buildPaging(links, current_page)
         # print('paging', paging)
         repos_resp = formatRep(repos_resp)
+        # not needed anymore
         # for rep in repos_resp:
         #     print(rep['name'], rep['created_at'])
         # repos_resp.sort(key=lambda x: x['created_at'], reverse=True)

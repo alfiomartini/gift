@@ -11,12 +11,12 @@ class GitRequest(models.Model):
         ('login', 'Users/login'),
         ('repo', 'Rep/name'),
         ('readme', 'Rep/readme'),
-        ('desc', 'Rep/desc')
+        ('description', 'Rep/desc')
     )
     id = models.AutoField(primary_key=True)
     request_text = models.CharField(max_length=100)
     date = models.DateTimeField(default=timezone.now)
-    req_type = models.CharField(max_length=6, choices=REQ_TYPE)
+    req_type = models.CharField(max_length=15, choices=REQ_TYPE)
 
     def __str__(self):
         return self.request_text + ', req_type:' + self.req_type
