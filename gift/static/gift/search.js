@@ -8,6 +8,12 @@ function search() {
   const body = document.querySelector("body");
   const tryit_btns = document.querySelectorAll(".landing-page form button");
 
+  select.addEventListener("change", () => {
+    const value = select.value;
+    input.value = value;
+    input.focus();
+  });
+
   search_btn.addEventListener("click", () => {
     main.innerHTML = "";
     const spinner = `<div class="d-flex justify-content-center spinner">

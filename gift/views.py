@@ -9,17 +9,23 @@ import json
 
 
 def index(request):
-    api_requests = GitRequest.objects.all()
-    print(api_requests)
+    # api_requests = GitRequest.objects.all()
+    # print(api_requests)
     num_requests = GitRequest.objects.all().count()
     user_searches = GitRequest.objects.filter(req_type='user').count()
+    print('user searches', user_searches)
     users_name = GitRequest.objects.filter(req_type='name').count()
+    print('users name', users_name)
     users_login = GitRequest.objects.filter(req_type='login').count()
+    print('users login', users_login)
     reps_name = GitRequest.objects.filter(req_type='repo').count()
+    print('reps name', reps_name)
     reps_readme = GitRequest.objects.filter(req_type='readme').count()
-    reps_desc = GitRequest.objects.filter(req_type='description').count()
-    sum_cats = user_searches + users_name + users_login + reps_name
-    + reps_readme + reps_desc
+    print('reps readme', reps_readme)
+    reps_desc = GitRequest.objects.filter(req_type='desc').count()
+    print('reps desc', reps_desc)
+    sum_cats = user_searches + users_name + \
+        users_login + reps_name + reps_readme + reps_desc
     print('num requests', num_requests)
     print('sum by cats', sum_cats)
     return render(request, 'gift/index.html', {})
@@ -67,7 +73,7 @@ def user_post(request):
         username = request.POST['username'].strip()
         if username.startswith('name:') or username.startswith('login:'):
             return redirect('search_users', query=username)
-        elif username.startswith('repo:') or username.startswith('readme') or username.startswith('description'):
+        elif username.startswith('repo:') or username.startswith('readme') or username.startswith('desc:'):
             return redirect('search_repos', query=username)
         elif username.startswith('user:'):
             return redirect('user_render', username=username)

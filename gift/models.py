@@ -11,7 +11,7 @@ class GitRequest(models.Model):
         ('login', 'Users/login'),
         ('repo', 'Rep/name'),
         ('readme', 'Rep/readme'),
-        ('description', 'Rep/desc')
+        ('desc', 'Rep/desc')
     )
     id = models.AutoField(primary_key=True)
     request_text = models.CharField(max_length=100)
