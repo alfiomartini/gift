@@ -37,7 +37,12 @@ def user_render(request, username):
         paging = buildPaging(links, current_page)
         # print('paging', paging)
         repos_resp = formatRep(repos_resp)
-        repos_resp.sort(key=lambda x: x['created_at'], reverse=True)
+        # for rep in repos_resp:
+        #     print(rep['name'], rep['created_at'])
+        # repos_resp.sort(key=lambda x: x['created_at'], reverse=True)
+        # print('')
+        # for rep in repos_resp:
+        #     print(rep['name'], rep['created_at'])
         GitRequest.objects.create(request_text=request_text, req_type='user')
         context = {'user': user_resp, 'repos': repos_resp, 'paging': paging}
         return render(request, 'gift/user.html', context=context)

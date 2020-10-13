@@ -53,12 +53,12 @@ def getGitUser(username):
     except:
         resp = {
             'error': 'Sorry, there was a problem with this request. Try again later.'}
-    print('resp', resp)
+    # print('resp', resp)
     return resp
 
 
 def getUserRepos(username, page):
-    url = f'https://api.github.com/users/{username}/repos?page={page}&per_page=10'
+    url = f'https://api.github.com/users/{username}/repos?page={page}&per_page=10&sort=created'
     try:
         json_resp = requests.get(url, headers=headers)
         # json_resp -> python dictionary
