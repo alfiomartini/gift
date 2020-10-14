@@ -308,6 +308,18 @@ nav .navbar {
   }
 }
 
+@media (max-width: 540px) {
+  .repo-list .profile img,
+  .users-list .profile img {
+    display: none;
+  }
+
+  .repo-list .profile,
+  .users-list .profile {
+    width: 300px;
+  }
+}
+
 @media (max-width: 470px) {
   .repos-wrapper .star,
   .repos-wrapper span.star,
@@ -331,6 +343,11 @@ nav .navbar {
 
   .repos-wrapper {
     padding: 15px;
+  }
+
+  .repo-list .profile,
+  .users-list .profile {
+    width: 240px;
   }
 }
 
