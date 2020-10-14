@@ -127,6 +127,26 @@ def search_repos(request, query):
 
 # this should be useful as an ajax request
 
+def charts(request, category):
+    chart = {}
+    if category == 'total':
+        user = GitRequest.objects.filter(req_type='user').count()
+        name = GitRequest.objects.filter(req_type='name').count()
+        login = GitRequest.objects.filter(req_type='login').count()
+        repo = GitRequest.objects.filter(req_type='repo').count()
+        readme = GitRequest.objects.filter(req_type='readme').count()
+        desc = GitRequest.objects.filter(req_type='desc').count()
+        chart['labels'] = ['user', 'name', 'login', 'repo', 'readme', 'desc']
+        chart['data'] = [user, name, login, repo, readme, desc]
+        chart['label'] = 'Search Options'
+    elif category == 'weekly':
+        pass
+    elif category == 'users':
+        pass
+    elif category == 'repos':
+        pass
+    return JsonResponse(chart)
+
 
 def user_repos(request, username):
     current_page = int(request.GET.get('page', 1))

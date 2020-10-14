@@ -13,6 +13,8 @@ ul {
   margin: 0;
 }
 
+/* Navbar */
+
 nav .navbar {
   margin: 0;
 }
@@ -29,6 +31,28 @@ nav .navbar-brand .brand {
 
 nav .navbar form input {
   width: 250px !important;
+}
+
+.navbar .dropdown .dropdown-menu {
+  background-color: #212529 !important;
+}
+
+.navbar .dropdown .dropdown-menu a:hover {
+  color: black !important;
+  background-color: whitesmoke !important;
+}
+
+nav {
+  margin: 10px 10px;
+}
+
+nav .navbar {
+  border: 1px solid lightblue;
+  font-size: 18px;
+}
+
+#find-select {
+  cursor: pointer;
 }
 
 /* Spinner */
@@ -50,7 +74,7 @@ nav .navbar form input {
 
 .landing-page {
   margin: 100px auto;
-  width: 500px;
+  width: 400px;
   height: 400px;
   background-color: #252129;
   color: whitesmoke;
@@ -81,19 +105,6 @@ nav .navbar form input {
   margin-top: -20px;
 }
 
-/* navbar */
-nav {
-  margin: 10px 10px;
-}
-
-nav .navbar {
-  border: 1px solid lightblue;
-  font-size: 18px;
-}
-
-#find-select {
-  cursor: pointer;
-}
 /* user.html */
 
 .profile-wrapper {
@@ -237,6 +248,17 @@ nav .navbar {
   width: 460px;
   border-radius: 10px;
 }
+
+/* Charts */
+/* see: https://www.chartjs.org/docs/latest/general/responsive.html */
+.chart-container {
+  position: relative;
+  height: 60vh;
+  width: 50vw;
+  margin: 20px auto;
+  background-color: #330033;
+}
+
 /* Error */
 
 .error {
@@ -249,9 +271,23 @@ nav .navbar {
 
 /* Media queries */
 
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
   .profile-bio {
     display: none;
+  }
+
+  .landing-page {
+    width: 60vw;
+  }
+}
+
+@media (max-width: 830px) {
+  .chart-container {
+    width: 70vw;
+  }
+
+  nav .navbar form input {
+    width: 200px !important;
   }
 }
 
@@ -266,6 +302,10 @@ nav .navbar {
   .profile-followers {
     display: none;
   }
+
+  .landing-page input {
+    width: 200px;
+  }
 }
 
 @media (max-width: 470px) {
@@ -274,15 +314,37 @@ nav .navbar {
   .profile img {
     display: none;
   }
-}
 
-/* @media (max-width: 400px) {
-  .profile-info {
-    display: none;
-  } 
-
-  .repos-wrapper .repo-cre {
-    display: none;
+  .landing-page {
+    width: 90vw;
   }
 }
-*/
+
+@media (max-width: 340px) {
+  .landing-page input {
+    width: 150px;
+  }
+
+  .github .repos-wrapper .name {
+    margin-right: 5px;
+  }
+
+  .repos-wrapper {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 300px) {
+  .github .repos-wrapper .name {
+    margin-right: 5px;
+  }
+
+  .repos-wrapper {
+    padding: 10px;
+  }
+
+  .repos-wrapper ul li div a,
+  .repos-header > span.name {
+    width: 110px;
+  }
+}

@@ -31,7 +31,8 @@
           <div>
             <!-- <span class="item mr-3">profile :</span> -->
             <a class="btn btn-light btn-sm" 
-            href="{{user.html_url}}" target="_blank">github</a>
+            href="{{user.html_url}}" target="_blank" 
+            data-toggle = "tooltip" title="Github Profile">github</a>
           </div>
         </div>
         {% if user.bio or user.location or user.company %}

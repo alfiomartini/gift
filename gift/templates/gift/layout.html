@@ -16,10 +16,15 @@
 
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer>
+  </script>
+
   <link href="{% static 'gift/styles.css' %}" rel="stylesheet">
 
   <script src="{% static 'gift/search.js' %}" defer></script>
   <script src="{% static 'gift/getCookie.js' %}" defer></script> 
+  <script src="{% static 'gift/charts.js' %}" defer></script> 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" defer>
   <link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed&display=swap" rel="stylesheet" defer>
   <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet" defer>
@@ -30,7 +35,9 @@
 <body>
   <nav>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <i class="fab fa-github-square fa-3x text-white p-2 mr-2"></i>
+      <a href="https://github.com/alfiomartini" target="_blank">  
+        <i class="fab fa-github-square fa-3x text-white p-2 mr-2"></i>
+      </a>
       <a class="navbar-brand white-tooltip" href="{% url 'index' %}" 
       data-toggle="tooltip" title="A Github Finder Tool" data-placement='right'>
         <span class="brand">G</span>
@@ -43,9 +50,25 @@
     
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="{% url 'index' %}">Home</a>
-          </li> -->
+          <li class = "nav-item dropdown"> 
+            <a  class="nav-link dropdown-toggle"  href="#"
+                id="navbardrop" data-toggle="dropdown"> 
+                <span data-toggle='tooltip' title="" data-placement=''>
+                    Charts
+                </span></a>
+            </a>
+            <div class="dropdown-menu" id="charts-menu"> 
+                <a class="dropdown-item text-white" href="#" data-cat ='total'
+                        data-toggle='tooltip' title="" data-placement='bottom'>
+                       Searches</a>
+                <a class="dropdown-item text-white" href="#" data-cat='7days'
+                       data-toggle='tooltip' title="" data-placement='bottom'>
+                      Searches (7 days)</a>
+                <a class="dropdown-item text-white" href="#" data-cat='24h'
+                    data-toggle='tooltip' title="" data-placement='bottom'>
+                    Searches (24h)</a>
+            </div>
+          </li>
         </ul>
         <form action="" class="form-inline mr-3">
           <select class="custom-select bg-dark text-light" id="find-select">
@@ -74,6 +97,7 @@
     {% endblock %}
     {% block scripts %}
     {% endblock %}
+
     <script>
       $(document).ready(() =>{
         $('[data-toggle="tooltip"]').tooltip()
