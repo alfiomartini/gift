@@ -34,7 +34,7 @@
 </head>
 <body>
   <nav>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a href="https://github.com/alfiomartini" target="_blank">  
         <i class="fab fa-github-square fa-3x text-white p-2 mr-2"></i>
       </a>
@@ -60,13 +60,29 @@
             <div class="dropdown-menu" id="charts-menu"> 
                 <a class="dropdown-item text-white" href="#" data-cat ='total'
                         data-toggle='tooltip' title="" data-placement='bottom'>
-                       Searches</a>
+                       Searches (all)</a>
                 <a class="dropdown-item text-white" href="#" data-cat='7days'
                        data-toggle='tooltip' title="" data-placement='bottom'>
                       Searches (7 days)</a>
-                <a class="dropdown-item text-white" href="#" data-cat='24h'
+                <a class="dropdown-item text-white" href="#" data-cat='1day'
                     data-toggle='tooltip' title="" data-placement='bottom'>
-                    Searches (24h)</a>
+                    Searches (1 day)</a>
+            </div>
+          </li>
+          <li class = "nav-item dropdown"> 
+            <a  class="nav-link dropdown-toggle"  href="#"
+                id="navbardrop" data-toggle="dropdown"> 
+                <span data-toggle='tooltip' title="Code/Readme" data-placement='bottom'>
+                    About
+                </span></a>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropAbout">
+                <a class="dropdown-item text-white" 
+                   href="#" target="_blank">
+                   Source Code
+                </a>
+                <a class="dropdown-item text-white" href="#">Readme</a>
+                <a class="dropdown-item text-white" href="mailto: alfio.martini@gmail.com">Email</a>
             </div>
           </li>
         </ul>

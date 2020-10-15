@@ -255,8 +255,12 @@ nav .navbar {
   position: relative;
   height: 60vh;
   width: 50vw;
-  margin: 20px auto;
+  margin: 80px auto;
   background-color: #330033;
+}
+
+.chart-container .btn-home {
+  text-decoration: none;
 }
 
 /* Error */
@@ -286,9 +290,9 @@ nav .navbar {
     width: 70vw;
   }
 
-  nav .navbar form input {
+  /* nav .navbar form input {
     width: 200px !important;
-  }
+  } */
 }
 
 @media (max-width: 768px) {
@@ -332,7 +336,7 @@ nav .navbar {
   }
 }
 
-@media (max-width: 340px) {
+@media (max-width: 360px) {
   .landing-page input {
     width: 150px;
   }
@@ -351,13 +355,13 @@ nav .navbar {
   }
 }
 
-@media (max-width: 300px) {
+@media (max-width: 330px) {
   .github .repos-wrapper .name {
     margin-right: 5px;
   }
 
   .repos-wrapper {
-    padding: 10px;
+    padding: 5px;
   }
 
   .repos-wrapper ul li div a,

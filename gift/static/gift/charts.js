@@ -41,10 +41,6 @@ function drawChart(chart) {
                        <canvas id="myChart"></canvas>
                     </div>`;
 
-  const colors_total = [];
-  const colors_users = [];
-  const colors_repos = [];
-
   let ctx = document.getElementById("myChart");
   let myChart = new Chart(ctx, {
     type: "bar",
@@ -102,4 +98,13 @@ function drawChart(chart) {
       },
     },
   });
+  const chart_container = document.querySelector(".chart-container");
+  const anchor_elem = document.createElement("a");
+  anchor_elem.href = "/";
+  anchor_elem.className = "btn-home";
+  const btn_elem = `<div class = "d-flex justify-content-center">
+      <button type="button" class="btn btn-dark mt-3">Back Home</button>
+     </div>`;
+  anchor_elem.innerHTML = btn_elem;
+  chart_container.append(anchor_elem);
 }

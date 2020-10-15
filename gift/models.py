@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from datetime import datetime
 
 # Create your models here.
 
@@ -18,5 +19,8 @@ class GitRequest(models.Model):
     date = models.DateTimeField(default=timezone.now)
     req_type = models.CharField(max_length=15, choices=REQ_TYPE)
 
+    def formatDate(self):
+        return self.date.strftime('%b %d, %H:%M')
+
     def __str__(self):
-        return self.request_text + ', req_type:' + self.req_type
+        return self.request_text + ', req_type:' + self.req_type + ', date:' + self.formatDate()

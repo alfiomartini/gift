@@ -3,13 +3,15 @@ from django.http import HttpResponse, JsonResponse
 from .utils import getGitUser, getUserRepos, formatRep
 from .utils import getUsers, getRepos, buildPaging
 from .models import GitRequest
+from datetime import datetime, timedelta
+from dateutil import tz
 import json
 
 # Create your views here.
 
 
 def index(request):
-    # api_requests = GitRequest.objects.all()
+    api_requests = GitRequest.objects.all()
     # print(api_requests)
     num_requests = GitRequest.objects.all().count()
     user_searches = GitRequest.objects.filter(req_type='user').count()
@@ -28,6 +30,18 @@ def index(request):
         users_login + reps_name + reps_readme + reps_desc
     print('num requests', num_requests)
     print('sum by cats', sum_cats)
+    yesterday = datetime.now(tz=tz.tzlocal()) + timedelta(days=-1)
+    sixhours = datetime.now(tz=tz.tzlocal()) + timedelta(hours=-6)
+    twohours = datetime.now(tz=tz.tzlocal()) + timedelta(hours=-2)
+    print('yesterday', yesterday)
+    print('sixhours', sixhours)
+    req_yesterday = GitRequest.objects.filter(date__gte=yesterday)
+    req_sixhours = GitRequest.objects.filter(date__gte=sixhours)
+    req_twohours = GitRequest.objects.filter(date__gte=twohours)
+    print('all requests', api_requests.count())
+    print('last 24 hours', req_yesterday.count())
+    print('last sixhours', req_sixhours.count())
+    print('last twohours', req_twohours.count())
     return render(request, 'gift/index.html', {})
 
 
@@ -129,22 +143,54 @@ def search_repos(request, query):
 
 def charts(request, category):
     chart = {}
+    chart['labels'] = ['user', 'name', 'login', 'repo', 'readme', 'desc']
     if category == 'total':
+        everything = GitRequest.objects.all().count()
         user = GitRequest.objects.filter(req_type='user').count()
         name = GitRequest.objects.filter(req_type='name').count()
         login = GitRequest.objects.filter(req_type='login').count()
         repo = GitRequest.objects.filter(req_type='repo').count()
         readme = GitRequest.objects.filter(req_type='readme').count()
         desc = GitRequest.objects.filter(req_type='desc').count()
-        chart['labels'] = ['user', 'name', 'login', 'repo', 'readme', 'desc']
+        chart['all'] = everything
+        chart['label'] = f'{everything} searches - all'
         chart['data'] = [user, name, login, repo, readme, desc]
-        chart['label'] = 'Search Options'
-    elif category == 'weekly':
-        pass
-    elif category == 'users':
-        pass
-    elif category == 'repos':
-        pass
+    elif category == '7days':
+        sevendays = datetime.now(tz=tz.tzlocal()) + timedelta(days=-7)
+        everything = GitRequest.objects.filter(date__gte=sevendays).count()
+        user = GitRequest.objects.filter(
+            req_type='user', date__gte=sevendays).count()
+        name = GitRequest.objects.filter(
+            req_type='name', date__gte=sevendays).count()
+        login = GitRequest.objects.filter(
+            req_type='login', date__gte=sevendays).count()
+        repo = GitRequest.objects.filter(
+            req_type='repo', date__gte=sevendays).count()
+        readme = GitRequest.objects.filter(
+            req_type='readme', date__gte=sevendays).count()
+        desc = GitRequest.objects.filter(
+            req_type='desc', date__gte=sevendays).count()
+        chart['all'] = everything
+        chart['label'] = f'{everything} searches - 7 days'
+        chart['data'] = [user, name, login, repo, readme, desc]
+    elif category == '1day':
+        yesterday = datetime.now(tz=tz.tzlocal()) + timedelta(days=-1)
+        everything = GitRequest.objects.filter(date__gte=yesterday).count()
+        user = GitRequest.objects.filter(
+            req_type='user', date__gte=yesterday).count()
+        name = GitRequest.objects.filter(
+            req_type='name', date__gte=yesterday).count()
+        login = GitRequest.objects.filter(
+            req_type='login', date__gte=yesterday).count()
+        repo = GitRequest.objects.filter(
+            req_type='repo', date__gte=yesterday).count()
+        readme = GitRequest.objects.filter(
+            req_type='readme', date__gte=yesterday).count()
+        desc = GitRequest.objects.filter(
+            req_type='desc', date__gte=yesterday).count()
+        chart['all'] = everything
+        chart['label'] = f'{everything} searches - 24h'
+        chart['data'] = [user, name, login, repo, readme, desc]
     return JsonResponse(chart)
 
 
