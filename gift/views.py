@@ -11,38 +11,42 @@ import json
 
 
 def index(request):
-    api_requests = GitRequest.objects.all()
-    # print(api_requests)
-    num_requests = GitRequest.objects.all().count()
-    user_searches = GitRequest.objects.filter(req_type='user').count()
-    print('user searches', user_searches)
-    users_name = GitRequest.objects.filter(req_type='name').count()
-    print('users name', users_name)
-    users_login = GitRequest.objects.filter(req_type='login').count()
-    print('users login', users_login)
-    reps_name = GitRequest.objects.filter(req_type='repo').count()
-    print('reps name', reps_name)
-    reps_readme = GitRequest.objects.filter(req_type='readme').count()
-    print('reps readme', reps_readme)
-    reps_desc = GitRequest.objects.filter(req_type='desc').count()
-    print('reps desc', reps_desc)
-    sum_cats = user_searches + users_name + \
-        users_login + reps_name + reps_readme + reps_desc
-    print('num requests', num_requests)
-    print('sum by cats', sum_cats)
-    yesterday = datetime.now(tz=tz.tzlocal()) + timedelta(days=-1)
-    sixhours = datetime.now(tz=tz.tzlocal()) + timedelta(hours=-6)
-    twohours = datetime.now(tz=tz.tzlocal()) + timedelta(hours=-2)
-    print('yesterday', yesterday)
-    print('sixhours', sixhours)
-    req_yesterday = GitRequest.objects.filter(date__gte=yesterday)
-    req_sixhours = GitRequest.objects.filter(date__gte=sixhours)
-    req_twohours = GitRequest.objects.filter(date__gte=twohours)
-    print('all requests', api_requests.count())
-    print('last 24 hours', req_yesterday.count())
-    print('last sixhours', req_sixhours.count())
-    print('last twohours', req_twohours.count())
+    # api_requests = GitRequest.objects.all()
+    # # print(api_requests)
+    # num_requests = GitRequest.objects.all().count()
+    # user_searches = GitRequest.objects.filter(req_type='user').count()
+    # print('user searches', user_searches)
+    # users_name = GitRequest.objects.filter(req_type='name').count()
+    # print('users name', users_name)
+    # users_login = GitRequest.objects.filter(req_type='login').count()
+    # print('users login', users_login)
+    # reps_name = GitRequest.objects.filter(req_type='repo').count()
+    # print('reps name', reps_name)
+    # reps_readme = GitRequest.objects.filter(req_type='readme').count()
+    # print('reps readme', reps_readme)
+    # reps_desc = GitRequest.objects.filter(req_type='desc').count()
+    # print('reps desc', reps_desc)
+    # sum_cats = user_searches + users_name + \
+    #     users_login + reps_name + reps_readme + reps_desc
+    # print('num requests', num_requests)
+    # print('sum by cats', sum_cats)
+    # yesterday = datetime.now(tz=tz.tzlocal()) + timedelta(days=-1)
+    # sixhours = datetime.now(tz=tz.tzlocal()) + timedelta(hours=-6)
+    # twohours = datetime.now(tz=tz.tzlocal()) + timedelta(hours=-2)
+    # print('yesterday', yesterday)
+    # print('sixhours', sixhours)
+    # req_yesterday = GitRequest.objects.filter(date__gte=yesterday)
+    # req_sixhours = GitRequest.objects.filter(date__gte=sixhours)
+    # req_twohours = GitRequest.objects.filter(date__gte=twohours)
+    # print('all requests', api_requests.count())
+    # print('last 24 hours', req_yesterday.count())
+    # print('last sixhours', req_sixhours.count())
+    # print('last twohours', req_twohours.count())
     return render(request, 'gift/index.html', {})
+
+
+def readme(request):
+    return render(request, 'gift/readme.html', {})
 
 
 def user_render(request, username):
@@ -139,7 +143,7 @@ def search_repos(request, query):
                       {'message': 'Sorry. No repositories found.'})
 
 
-# this should be useful as an ajax request
+# these ate used by ajax requests:
 
 def charts(request, category):
     chart = {}

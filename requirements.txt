@@ -1,2 +1,5 @@
+django
+gunicorn
+whitenoise
 dateparser
 datetutil

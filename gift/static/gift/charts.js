@@ -27,7 +27,7 @@ function anchor_chart() {
       return response.json();
     })
     .then((chart) => {
-      console.log(chart);
+      // console.log(chart);
       drawChart(chart);
     })
     .catch((error) => {

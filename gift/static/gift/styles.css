@@ -273,6 +273,28 @@ nav .navbar {
   margin: 10px;
 }
 
+/* Readme */
+
+.readme {
+  background-color: #000033;
+  color: whitesmoke;
+  padding: 10px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: justify;
+  width: 60%;
+  margin: 50px auto;
+  margin-bottom: 20px;
+}
+
+.readme a {
+  color: lightgreen;
+}
+
+.readme .title {
+  text-align: center;
+  font-size: 20px;
+  font-variant: small-caps;
+}
 /* Media queries */
 
 @media (max-width: 1024px) {
