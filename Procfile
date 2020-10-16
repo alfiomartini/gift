@@ -1,0 +1,1 @@
+web: gunicorn github_finder.wsgi --log-file -

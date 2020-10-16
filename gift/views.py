@@ -143,7 +143,7 @@ def search_repos(request, query):
                       {'message': 'Sorry. No repositories found.'})
 
 
-# these ate used by ajax requests:
+# these are used by ajax requests:
 
 def charts(request, category):
     chart = {}
