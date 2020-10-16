@@ -64,6 +64,7 @@ function drawChart(chart) {
       ],
     },
     options: {
+      // https://stackoverflow.com/questions/31631354/how-to-display-data-values-on-chart-js
       plugins: {
         datalabels: {
           anchor: 'end',
