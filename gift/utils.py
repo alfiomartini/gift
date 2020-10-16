@@ -3,6 +3,7 @@ import requests
 from datetime import datetime
 from urllib.parse import urlparse, parse_qs
 
+
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 headers = {'Authorization': f"token {GITHUB_TOKEN}",
            'Accept': 'application/vnd.github.v3+json'}
