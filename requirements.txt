@@ -2,4 +2,4 @@ django
 gunicorn
 whitenoise
 dateparser
-datetutil
+python-dateutil
