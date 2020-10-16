@@ -64,6 +64,17 @@ function drawChart(chart) {
       ],
     },
     options: {
+      plugins: {
+        datalabels: {
+          anchor: 'end',
+          align: 'top',
+          color: 'white',
+          formatter: Math.round,
+          // font: {
+          //   weight: 'bold'
+          // }
+        }
+      },
       responsive: true,
       maintainAspectRatio: false,
       legend: {
