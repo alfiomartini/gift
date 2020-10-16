@@ -21,7 +21,8 @@
               <input type="text" name="username" value="{{user.login}}" hidden>
               <!-- <span class="item">user :</span> -->
               <button class="btn btn-light btn-sm px-3 py-0 " type="submit"
-              data-toggle = "tooltip" title="Gift Profile">{{user.login}}</button>
+              data-toggle = "tooltip" title="Profile in Gift">
+               {{user.login|slice:"0:17"}}</button>
             </form>
           </div>
           <div>

@@ -341,28 +341,44 @@ nav .navbar {
 @media (max-width: 540px) {
   .repo-list .profile img,
   .users-list .profile img {
-    display: none;
+    /* display: none; */
+    width: 70px;
+    height: 75px;
   }
 
   .repo-list .profile,
   .users-list .profile {
-    width: 300px;
+    width: 400px;
   }
 }
 
 @media (max-width: 470px) {
   .repos-wrapper .star,
   .repos-wrapper span.star,
-  .profile img {
+  .github .profile #user-email {
     display: none;
+  }
+
+  .github .profile img {
+    width: 70px;
+    height: 75px;
+  }
+
+  .github .profile {
+    align-items: center;
   }
 
   .landing-page {
     width: 90vw;
   }
+
+  .repo-list .profile,
+  .users-list .profile {
+    width: 350px;
+  }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 390px) {
   .landing-page input {
     width: 150px;
   }
@@ -377,11 +393,15 @@ nav .navbar {
 
   .repo-list .profile,
   .users-list .profile {
-    width: 240px;
+    width: 300px;
+  }
+
+  .rep-stars {
+    display: block;
   }
 }
 
-@media (max-width: 330px) {
+@media (max-width: 350px) {
   .github .repos-wrapper .name {
     margin-right: 5px;
   }
@@ -393,5 +413,10 @@ nav .navbar {
   .repos-wrapper ul li div a,
   .repos-header > span.name {
     width: 110px;
+  }
+
+  .repo-list .profile,
+  .users-list .profile {
+    width: 260px;
   }
 }

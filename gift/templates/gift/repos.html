@@ -20,10 +20,12 @@
             <a class="btn btn-light btn-sm" 
             href="{{rep.html_url}}" target="_blank" 
             data-toggle = "tooltip" title="repository">
-            {{rep.name|slice:"0:25"}}
+            {{rep.name|slice:"0:14"}}
             </a>
-            <span class="star text-white mx-1">&#9734;</span>
-            <span class="star-counter text-white">{{rep.stargazers_count}}</span>
+            <span class="rep-stars">
+              <span class="text-white mx-1">&#9734;</span>
+              <span class="text-white">{{rep.stargazers_count}}</span>
+            </span>
           </div>
           <div>
             <form  action="{% url 'post_user' %}" method="post">
@@ -31,8 +33,8 @@
               <input type="text" name="username" value="{{rep.owner.login}}" hidden>
               <!-- <span class="item">user :</span> -->
               <button class="btn btn-light btn-sm px-3 py-0 " type="submit"
-              data-toggle = "tooltip" title="user">
-                {{rep.owner.login}}
+              data-toggle = "tooltip" title="Profile in Gift">
+                {{rep.owner.login|slice:"0:14"}}
               </button>
             </form>
           </div>
