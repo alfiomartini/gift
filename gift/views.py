@@ -5,6 +5,7 @@ from .utils import getUsers, getRepos, buildPaging
 from .models import GitRequest
 from datetime import datetime, timedelta
 from dateutil import tz
+from django.views.decorators.csrf import requires_csrf_token, ensure_csrf_cookie
 import json
 
 # Create your views here.
@@ -84,11 +85,13 @@ def user_render(request, username):
         return render(request, 'gift/user.html', context=context)
 
 
+# @ensure_csrf_cookie
 def user_post(request):
     if request.method == 'POST':
         # get username from form and remove spaces from
         # both ends
         username = request.POST['username'].strip()
+        print(f'Hello {username}')
         if username.startswith('name:') or username.startswith('login:'):
             return redirect('search_users', query=username)
         elif username.startswith('repo:') or username.startswith('readme') or username.startswith('desc:'):
@@ -97,6 +100,8 @@ def user_post(request):
             return redirect('user_render', username=username)
         else:
             return redirect('user_render', username=username)
+    else:
+        print('error?')
 
 
 def search_users(request, query):
