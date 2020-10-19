@@ -133,8 +133,12 @@ nav .navbar {
   width: 200px;
   height: 200px;
   margin: 20px;
+  transition: all 1s;
 }
 
+.github .profile img:hover {
+  transform: scale(1.1);
+}
 .profile-info div,
 .profile-followers div {
   margin: 10px;
@@ -220,6 +224,11 @@ nav .navbar {
   width: 100px;
   height: 100px;
   margin: 20px;
+  transition: all 1s;
+}
+
+.user-wrapper img:hover {
+  transform: scale(1.2);
 }
 
 .user-wrapper .profile > div {
