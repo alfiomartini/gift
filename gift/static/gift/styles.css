@@ -228,7 +228,7 @@ nav .navbar {
 }
 
 .user-wrapper img:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 .user-wrapper .profile > div {
@@ -325,10 +325,6 @@ nav .navbar {
   .chart-container {
     width: 70vw;
   }
-
-  /* nav .navbar form input {
-    width: 200px !important;
-  } */
 }
 
 @media (max-width: 768px) {
@@ -343,8 +339,8 @@ nav .navbar {
     display: none;
   }
 
-  .landing-page input {
-    width: 200px;
+  .landing-page {
+    width: 80vw;
   }
 }
 
@@ -389,8 +385,8 @@ nav .navbar {
 }
 
 @media (max-width: 390px) {
-  .landing-page input {
-    width: 150px;
+  .landing-page input[type="search"] {
+    width: 180px;
   }
 
   .github .repos-wrapper .name {
@@ -428,5 +424,13 @@ nav .navbar {
   .repo-list .profile,
   .users-list .profile {
     width: 260px;
+  }
+
+  .landing-page {
+    width: 90vw;
+  }
+
+  .landing-page input[type="search"] {
+    width: 160px;
   }
 }
