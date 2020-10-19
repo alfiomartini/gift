@@ -14,15 +14,7 @@ function search() {
     input.focus();
   });
 
-  search_btn.addEventListener("click", () => {
-    main.innerHTML = "";
-    const spinner = `<div class="d-flex justify-content-center spinner">
-          <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
-          </div>
-        </div>`;
-    main.innerHTML = spinner;
-  });
+  search_btn.addEventListener("click", searchSpinner);
 
   tryit_btns.forEach((btn) => {
     if (btn) {
@@ -30,10 +22,20 @@ function search() {
     }
   });
 
+  function searchSpinner(){
+    main.innerHTML = "";
+    const spinner = `<div class="d-flex justify-content-center spinner">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>`;
+    main.innerHTML = spinner;
+  }
+
   function showSpinner(event) {
     event.preventDefault();
-    const tryit_btn = this;
-    const form = tryit_btn.parentElement;
+    const btn = this;
+    const form = btn.parentElement;
     // see: https://stackoverflow.com/questions/42053775/getting-error-form-submission-canceled-because-the-form-is-not-connected
     // document.body.append(form);
     // form.style.display = "none";

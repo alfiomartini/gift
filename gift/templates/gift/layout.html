@@ -36,9 +36,13 @@
   {% block styles %}
   {% endblock %}
 </head>
-<body>
+<!-- https://stackoverflow.com/questions/24046/the-safari-back-button-problem -->
+<body onunload="">
   <nav>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a href="{% url 'index' %}">
+        <i class="fas fa-home fa-2x text-white  mr-2"></i>
+      </a>
       <a href="https://github.com/alfiomartini" target="_blank">  
         <i class="fab fa-github-square fa-3x text-white p-2 mr-2"></i>
       </a>
