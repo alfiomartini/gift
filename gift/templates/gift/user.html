@@ -58,23 +58,25 @@
           {% endif %}
         </div>
         {% endif %}
-        <div class="profile-followers">
-          <div>
-            <span class="badge badge-dark border border-light p-2 follow mr-2">Followers</span>
-            {{user.followers}}
-          </div>
-          <div>
-            <span class="badge badge-dark border border-light p-2 follow mr-2">Following</span>
-            {{user.following}}
-          </div>
-          <div>
-            <span class="badge badge-dark border border-light p-2 follow mr-2">Hireable</span>
-            {% if user.hireable %}
-              Yes
-            {% else %}
-              ?
-            {% endif %}
-          </div>
+        {% if user.type == 'User' %}
+          <div class="profile-followers">
+            <div>
+              <span class="badge badge-dark border border-light p-2 follow mr-2">Followers</span>
+              {{user.followers}}
+            </div>
+            <div>
+              <span class="badge badge-dark border border-light p-2 follow mr-2">Following</span>
+              {{user.following}}
+            </div>
+            <div>
+              <span class="badge badge-dark border border-light p-2 follow mr-2">Hireable</span>
+              {% if user.hireable %}
+                Yes
+              {% else %}
+                ?
+              {% endif %}
+            </div>
+          {% endif %}
           <!-- <div>
             <span class="badge badge-dark border border-light p-2 follow mr-2">Public Rep.</span>
             {{user.public_repos}}
