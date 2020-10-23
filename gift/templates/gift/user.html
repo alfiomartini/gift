@@ -92,6 +92,7 @@
         <span class="badge badge-dark p-2 repo-des">Description</span>
         <span class="badge badge-dark p-2 repo-cre">Created</span>
         <span class="badge badge-dark p-2 repo-upd">Updated</span>
+        <span class="badge badge-dark p-2 repo-lang">Language</span>
       </div>
       <ul class="repos">
         {% for rep in repos %}
@@ -117,6 +118,11 @@
           {% endif %}
           <span class="badge badge-info p-2 repo-cre">{{rep.created_at|date:"M d, Y"}}</span>
           <span class="badge badge-info p-2 repo-upd">{{rep.updated_at|date:"M d, Y"}}</span>
+          {% if rep.language %}
+          <span class="badge badge-secondary p-2 repo-lang">{{rep.language}}</span>
+          {% else %}
+          <span class="badge badge-warning p-2 repo-lang">no code</span>
+          {% endif %}
         </li>
         {% endif %}
       {% empty %}
