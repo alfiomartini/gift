@@ -335,6 +335,10 @@ nav .navbar {
 }
 
 @media (max-width: 600px) {
+  .repos-wrapper .repo-lang {
+    display: none;
+  }
+
   .profile-followers {
     display: none;
   }

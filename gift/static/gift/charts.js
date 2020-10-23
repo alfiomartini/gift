@@ -100,7 +100,6 @@ function drawChart(chart) {
             ticks: {
               fontColor: "limegreen",
               beginAtZero: true,
-              // https://stackoverflow.com/questions/15751571/change-the-y-axis-values-from-real-numbers-to-integers-in-chart-js
               precision:0,
             },
             gridLines: {

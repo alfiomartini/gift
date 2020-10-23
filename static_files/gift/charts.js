@@ -70,7 +70,7 @@ function drawChart(chart) {
           anchor: 'end',
           align: 'top',
           color: 'white',
-          formatter: Math.round,
+          // formatter: Math.round,
           // font: {
           //   weight: 'bold'
           // }
@@ -100,6 +100,7 @@ function drawChart(chart) {
             ticks: {
               fontColor: "limegreen",
               beginAtZero: true,
+              precision:0,
             },
             gridLines: {
               zeroLineColor: "limegreen",
