@@ -33,17 +33,25 @@
               <input type="text" name="username" value="{{rep.owner.login}}" hidden>
               <!-- <span class="item">user :</span> -->
               <button class="btn btn-light btn-sm px-3 py-0 " type="submit"
-              data-toggle = "tooltip" title="Profile in Gift">
+              data-toggle = "tooltip" title="User Profile in Gift">
                 {{rep.owner.login|slice:"0:14"}}
               </button>
             </form>
           </div>
-          <div>
-            <!-- <span class="item">profile :</span> -->
+          <!-- <div>
             <a class="btn btn-light btn-sm" 
             href="{{rep.owner.html_url}}" target="_blank"
             data-toggle = "tooltip" title="Github Profile">github</a>
+          </div> -->
+          {% if rep.language %}
+          <div>
+            <span class="badge badge-warning">{{rep.language}}</span>
           </div>
+          {% else %}
+          <div>
+            <span class="badge badge-warning">no code</span>
+          </div>
+          {% endif %}
         </div>
       </div>
     </div>
