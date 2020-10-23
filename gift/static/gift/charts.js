@@ -70,7 +70,7 @@ function drawChart(chart) {
           anchor: 'end',
           align: 'top',
           color: 'white',
-          formatter: Math.round,
+          // formatter: Math.round,
           // font: {
           //   weight: 'bold'
           // }
@@ -100,6 +100,8 @@ function drawChart(chart) {
             ticks: {
               fontColor: "limegreen",
               beginAtZero: true,
+              // https://stackoverflow.com/questions/15751571/change-the-y-axis-values-from-real-numbers-to-integers-in-chart-js
+              precision:0,
             },
             gridLines: {
               zeroLineColor: "limegreen",
