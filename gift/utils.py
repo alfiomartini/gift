@@ -50,6 +50,10 @@ def getGitUser(username):
     try:
         json_resp = requests.get(url, headers=headers)
         # json_resp -> python dictionary
+        # {
+        # "message": "Not Found",
+        # "documentation_url": "https://docs.github.com/rest/reference/users#get-a-user"
+        # }
         resp = json_resp.json()
     except:
         resp = {
