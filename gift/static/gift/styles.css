@@ -309,6 +309,32 @@ nav .navbar {
   font-size: 20px;
   font-variant: small-caps;
 }
+
+/* Sort Menus */
+
+.sort-options {
+  float: right;
+  margin-right: 80px;
+}
+
+.sort-options .dropdown-toggle {
+  text-decoration: none;
+  color: whitesmoke;
+}
+
+.sort-options .dropdown-menu {
+  background-color: black;
+}
+
+.sort-options .dropdown-menu a {
+  color: whitesmoke;
+}
+
+.sort-options .dropdown-menu a:hover {
+  color: black;
+  background-color: whitesmoke;
+}
+
 /* Media queries */
 
 @media (max-width: 1024px) {
@@ -318,6 +344,12 @@ nav .navbar {
 
   .landing-page {
     width: 60vw;
+  }
+}
+
+@media (max-width: 900px) {
+  .repos-wrapper .repo-forks {
+    display: none;
   }
 }
 
@@ -385,6 +417,14 @@ nav .navbar {
   .repo-list .profile,
   .users-list .profile {
     width: 350px;
+  }
+
+  .heading-text {
+    display: none;
+  }
+
+  .sort-options {
+    float: none;
   }
 }
 

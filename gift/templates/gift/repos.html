@@ -6,9 +6,25 @@
 {% endblock %}
 
 {% load static %}
+{% load gift_extras %}
 
 {% block body %}
-  <div class="heading">Repositories found</div>
+  <div class="heading"> <span class="heading-text">Repositories found </span> 
+    <span class="dropdown sort-options">
+      <a class="dropdown-toggle" href="#"  data-toggle="dropdown">
+        Sort Options
+      </a>
+      <div class="dropdown-menu">
+        {% for item in menu_list %}
+          <a href="#" class="dropdown-item ">{{item.name|nbsp}}</a>
+        {% endfor %}
+        <!-- <a href="#" class="dropdown-item">Most Stars</a>
+        <a href="#" class="dropdown-item">Most Forks</a>
+        <a href="#" class="dropdown-item">Recently Created</a>
+        <a href="#" class="dropdown-item">Recently Updated</a> -->
+      </div>
+    </span>
+  </div>
   <div class="repo-list mt-3">
     {% for rep in repos.items %}
     <div class="user-wrapper">

@@ -124,3 +124,48 @@ def buildPaging(links, current_page):
             paging['last_page'] = paging['last']
 
     return paging
+
+
+class SortRepos:
+
+    def __init__(self):
+        self.stars = True
+        self.forks = False
+        self.created = False
+        self.updated = False
+
+    def sortRepos(self):
+        return [
+            {
+                'value': self.stars,
+                'name': f'{self.getPrefix(self.stars)} Most Stars'
+            },
+            {
+                'value': self.forks,
+                'name': f'{self.getPrefix(self.forks)} Most Forks'
+            },
+            {
+                'value': self.created,
+                'name': f'{self.getPrefix(self.created)} Recently Created'
+            },
+            {
+                'value': self.updated,
+                'name': f'{self.getPrefix(self.updated)} Recently Updated'
+            }
+        ]
+
+    def setTypes(self, stars, forks, created, updated):
+        self.stars = stars
+        self.forks = forks
+        self.created = created
+        self.updated = updated
+
+    def getPrefix(self, bool):
+        if bool:
+            return u'\u2713'
+        else:
+            return '   '
+
+    def __str__(self):
+        return f'SortRep(stars = {self.stars}, forks = {self.forks}, ' \
+            f'created = {self.created}, updated= {self.updated})'

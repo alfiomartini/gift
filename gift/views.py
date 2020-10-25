@@ -2,13 +2,15 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .utils import getGitUser, getUserRepos, formatRep
 from .utils import getUsers, getRepos, buildPaging
+from .utils import SortRepos
 from .models import GitRequest
 from datetime import datetime, timedelta
 from dateutil import tz
 from django.views.decorators.csrf import requires_csrf_token, ensure_csrf_cookie
 import json
 
-# Create your views here.
+# create sorting menu for repositories
+sort_repos = SortRepos()
 
 
 def index(request):
@@ -43,6 +45,8 @@ def index(request):
     # print('last 24 hours', req_yesterday.count())
     # print('last sixhours', req_sixhours.count())
     # print('last twohours', req_twohours.count())
+    print(sort_repos)
+    print(sort_repos.sortRepos())
     return render(request, 'gift/index.html', {})
 
 
@@ -138,13 +142,18 @@ def search_repos(request, query):
     if repos_resp['total_count'] > 0:
         # print('resp headesr', json_resp.headers)
         # print('resp links', json_resp.links)
+        sort_repos.setTypes(forks=False, stars=False,
+                            created=True, updated=False)
+        menu_list = sort_repos.sortRepos()
         links = json_resp.links
         paging = buildPaging(links, current_page)
         # print('paging', paging)
         GitRequest.objects.create(request_text=request_text, req_type=place_)
         # return JsonResponse(repos_resp)
         return render(request, 'gift/repos.html', {'repos': repos_resp,
-                                                   'paging': paging})
+                                                   'paging': paging,
+                                                   'menu_list': menu_list
+                                                   })
     else:
         return render(request, 'gift/error.html',
                       {'message': 'Sorry. No repositories found.'})
