@@ -239,23 +239,11 @@ nav .navbar {
   justify-content: flex-start;
 }
 
-/* .user-wrapper .profile-info > div {
-  margin-bottom: 5px;
-} */
-
 .user-wrapper .profile-info-tail {
   display: flex;
   flex-wrap: wrap;
   margin: 0;
 }
-
-/* .user-wrapper .profile-info > div {
-  margin: 15px;
-} */
-
-/* .user-wrapper form {
-  margin-top: 20px;
-} */
 
 /* Repositories */
 

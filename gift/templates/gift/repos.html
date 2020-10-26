@@ -16,7 +16,8 @@
       </a>
       <div class="dropdown-menu">
         {% for item in menu_list %}
-          <a href="#" class="dropdown-item ">{{item.name|nbsp}}</a>
+          <a href="#" class="dropdown-item" data-sort="{{item.sort}}"
+            data-query="{{query}}">{{item.name|nbsp}}</a>
         {% endfor %}
       </div>
     </span>
@@ -101,4 +102,8 @@
     </li>
   </ul>
 {% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'gift/sort_options.js' %}"></script>
 {% endblock %}

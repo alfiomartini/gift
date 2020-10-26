@@ -101,7 +101,7 @@ def user_post(request):
         if username.startswith('name:') or username.startswith('login:'):
             return redirect('search_users', query=username)
         elif username.startswith('repo:') or username.startswith('readme') or username.startswith('desc:'):
-            return redirect('search_repos', query=username)
+            return redirect('search_repos', query=username, sort='stars')
         elif username.startswith('user:'):
             return redirect('user_render', username=username)
         else:
@@ -131,19 +131,18 @@ def search_users(request, query):
                       {'message': 'Sorry. No users found.'})
 
 
-def search_repos(request, query):
+def search_repos(request, query, sort):
+    print('current sort', sort)
     current_page = int(request.GET.get('page', 1))
     place, sep, reponame = query.partition(':')
     # remove trailing or leading spaces
     place_ = place.strip()
     reponame_ = reponame.strip()
     request_text = place_ + sep + reponame_
-    json_resp, repos_resp = getRepos(reponame_, place_, current_page)
+    json_resp, repos_resp = getRepos(
+        reponame_, place_, current_page, sort=sort)
     if repos_resp['total_count'] > 0:
-        # print('resp headesr', json_resp.headers)
-        # print('resp links', json_resp.links)
-        sort_repos.setTypes(forks=False, stars=False,
-                            created=True, updated=False)
+        sort_repos.setThisSort(sort)
         menu_list = sort_repos.sortRepos()
         links = json_resp.links
         paging = buildPaging(links, current_page)
@@ -152,7 +151,8 @@ def search_repos(request, query):
         # return JsonResponse(repos_resp)
         return render(request, 'gift/repos.html', {'repos': repos_resp,
                                                    'paging': paging,
-                                                   'menu_list': menu_list
+                                                   'menu_list': menu_list,
+                                                   'query': request_text
                                                    })
     else:
         return render(request, 'gift/error.html',

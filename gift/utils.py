@@ -9,13 +9,14 @@ headers = {'Authorization': f"token {GITHUB_TOKEN}",
            'Accept': 'application/vnd.github.v3+json'}
 
 
-def getRepos(reponame, place, page):
+def getRepos(reponame, place, page, sort):
+    # print('sort = ', sort)
     if place == 'repo':
-        url = f'https://api.github.com/search/repositories?q={reponame}+in:name&type=Repositories&page={page}&per_page=60&sort=stars&order=desc'
+        url = f'https://api.github.com/search/repositories?q={reponame}+in:name&type=Repositories&page={page}&per_page=60&sort={sort}&order=desc'
     elif place == 'readme':
-        url = f'https://api.github.com/search/repositories?q={reponame}+in:readme&type=Repositories&page={page}&per_page=60&sort=stars&order=desc'
+        url = f'https://api.github.com/search/repositories?q={reponame}+in:readme&type=Repositories&page={page}&per_page=60&sort={sort}&order=desc'
     else:  # place == description
-        url = f'https://api.github.com/search/repositories?q={reponame}+in:description&type=Repositories&page={page}&per_page=60&sort=stars&order=desc'
+        url = f'https://api.github.com/search/repositories?q={reponame}+in:description&type=Repositories&page={page}&per_page=60&sort={sort}&order=desc'
     try:
         json_resp = requests.get(url, headers=headers)
         # print('headers', json_resp.headers)
@@ -63,7 +64,7 @@ def getGitUser(username):
 
 
 def getUserRepos(username, page):
-    url = f'https://api.github.com/users/{username}/repos?page={page}&per_page=10&sort=created'
+    url = f'https://api.github.com/users/{username}/repos?page={page}&per_page=10&sort=created&order=desc'
     try:
         json_resp = requests.get(url, headers=headers)
         # json_resp -> python dictionary
@@ -138,27 +139,50 @@ class SortRepos:
         return [
             {
                 'value': self.stars,
-                'name': f'{self.getPrefix(self.stars)} Most Stars'
+                'name': f'{self.getPrefix(self.stars)} Most Stars',
+                'sort': 'stars'
             },
             {
                 'value': self.forks,
-                'name': f'{self.getPrefix(self.forks)} Most Forks'
+                'name': f'{self.getPrefix(self.forks)} Most Forks',
+                'sort': 'forks'
             },
             {
                 'value': self.created,
-                'name': f'{self.getPrefix(self.created)} Recently Created'
+                'name': f'{self.getPrefix(self.created)} Recently Created',
+                'sort': 'created'
             },
             {
                 'value': self.updated,
-                'name': f'{self.getPrefix(self.updated)} Recently Updated'
+                'name': f'{self.getPrefix(self.updated)} Recently Updated',
+                'sort': 'updated'
             }
         ]
 
-    def setTypes(self, stars, forks, created, updated):
-        self.stars = stars
-        self.forks = forks
-        self.created = created
-        self.updated = updated
+    def setOthers(self, sortList):
+        for sort in sortList:
+            if sort == 'stars':
+                self.stars = False
+            elif sort == 'forks':
+                self.forks = False
+            elif sort == 'created':
+                self.created = False
+            else:
+                self.updated = False
+
+    def setThisSort(self, sort):
+        if sort == 'stars':
+            self.stars = True
+            self.setOthers(['forks', 'created', 'updated'])
+        elif sort == 'forks':
+            self.forks = True
+            self.setOthers(['stars', 'created', 'updated'])
+        elif sort == 'created':
+            self.created = True
+            self.setOthers(['stars', 'forks', 'updated'])
+        else:
+            self.updated = True
+            self.setOthers(['stars', 'forks', 'created'])
 
     def getPrefix(self, bool):
         if bool:

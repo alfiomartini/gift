@@ -8,7 +8,8 @@ urlpatterns = [
     path('user/<str:username>', views.user_render, name='user_render'),
     path('user/js/<str:username>', views.user_repos, name='user_repos'),
     path('users/get/<str:query>', views.search_users, name='search_users'),
-    path('repos/get/<str:query>', views.search_repos, name='search_repos'),
+    path('repos/get/<str:query>/<str:sort>',
+         views.search_repos, name='search_repos'),
     path('charts/<str:category>', views.charts, name='charts'),
     path('readme', views.readme, name='readme'),
 ]
