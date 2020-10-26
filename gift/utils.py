@@ -30,11 +30,16 @@ def getRepos(reponame, place, page, sort):
     return (json_resp, resp)
 
 
-def getUsers(username, place, page):
+def getUsers(username, place, page, sort):
+    if sort == 'best':
+        sort = ''
+    elif sort == 'repos':
+        sort = 'repositories'
+    print('getUser sort', sort)
     if place == 'name':
-        url = f'https://api.github.com/search/users?q={username}+in:fullname&type=Users&page={page}&per_page=60'
+        url = f'https://api.github.com/search/users?q={username}+in:fullname&type=Users&page={page}&per_page=60&sort={sort}&o=desc'
     else:  # place == 'login
-        url = f'https://api.github.com/search/users?q={username}+in:login&type=Users&page={page}&per_page=60'
+        url = f'https://api.github.com/search/users?q={username}+in:login&type=Users&page={page}&per_page=60&sort={sort}&o=desc'
     try:
         json_resp = requests.get(url, headers=headers)
         # json_resp -> python dictionary
@@ -193,3 +198,71 @@ class SortRepos:
     def __str__(self):
         return f'SortRep(stars = {self.stars}, forks = {self.forks}, ' \
             f'created = {self.created}, updated= {self.updated})'
+
+
+class SortUsers:
+
+    def __init__(self):
+        self.best = True
+        self.repos = False
+        self.followers = False
+        self.joined = False
+
+    def sortUsers(self):
+        return [
+            {
+                'value': self.best,
+                'name': f'{self.getPrefix(self.best)} Best Match',
+                'sort': 'best'
+            },
+            {
+                'value': self.repos,
+                'name': f'{self.getPrefix(self.repos)} Most repositories',
+                'sort': 'repos'
+            },
+            {
+                'value': self.followers,
+                'name': f'{self.getPrefix(self.followers)} Most Followers',
+                'sort': 'followers'
+            },
+            {
+                'value': self.joined,
+                'name': f'{self.getPrefix(self.joined)} Recently Joined',
+                'sort': 'joined'
+            }
+        ]
+
+    def setOthers(self, sortList):
+        for sort in sortList:
+            if sort == 'best':
+                self.best = False
+            elif sort == 'repos':
+                self.repos = False
+            elif sort == 'followers':
+                self.followers = False
+            else:
+                self.joined = False
+
+    def setThisSort(self, sort):
+        if sort == 'best':
+            self.best = True
+            self.setOthers(['repos', 'followers', 'joined'])
+        elif sort == 'repos':
+            self.repos = True
+            self.setOthers(['best', 'followers', 'joined'])
+        elif sort == 'followers':
+            self.followers = True
+            self.setOthers(['best', 'repos', 'joined'])
+        else:
+            self.joined = True
+            self.setOthers(['best', 'repos', 'followers'])
+
+    def getPrefix(self, bool):
+        if bool:
+            return u'\u2713'
+        else:
+            return '   '
+
+    def __str__(self):
+        return f'SortRep(best = {self.best}, repos = {self.repos}, ' \
+            f'followers = {self.followers}, joined= {self.joined})'

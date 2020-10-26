@@ -6,9 +6,22 @@
 {% endblock %}
 
 {% load static %}
+{% load gift_extras %}
 
 {% block body %}
-  <div class="heading">Users found</div>
+  <div class="heading"><span class="heading-text"> Users found</span>
+    <span class="dropdown sort-options">
+      <a class="dropdown-toggle" href="#"  data-toggle="dropdown">
+        Sort Options
+      </a>
+      <div class="dropdown-menu">
+        {% for item in menu_list %}
+          <a href="#" class="dropdown-item" data-sort="{{item.sort}}"
+            data-query="{{query}}">{{item.name|nbsp}}</a>
+        {% endfor %}
+      </div>
+    </span>
+  </div>
   <div class="users-list mt-3">
     {% for user in users.items %}
     <div class="user-wrapper">
@@ -66,4 +79,8 @@
     </li>
   </ul>
   {% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'gift/sort_users.js' %}"></script>
 {% endblock %}

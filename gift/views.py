@@ -2,51 +2,19 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .utils import getGitUser, getUserRepos, formatRep
 from .utils import getUsers, getRepos, buildPaging
-from .utils import SortRepos
+from .utils import SortRepos, SortUsers
 from .models import GitRequest
 from datetime import datetime, timedelta
 from dateutil import tz
-from django.views.decorators.csrf import requires_csrf_token, ensure_csrf_cookie
+# from django.views.decorators.csrf import requires_csrf_token, ensure_csrf_cookie
 import json
 
-# create sorting menu for repositories
+# create sorting menu for repositories, users
 sort_repos = SortRepos()
+sort_users = SortUsers()
 
 
 def index(request):
-    # api_requests = GitRequest.objects.all()
-    # # print(api_requests)
-    # num_requests = GitRequest.objects.all().count()
-    # user_searches = GitRequest.objects.filter(req_type='user').count()
-    # print('user searches', user_searches)
-    # users_name = GitRequest.objects.filter(req_type='name').count()
-    # print('users name', users_name)
-    # users_login = GitRequest.objects.filter(req_type='login').count()
-    # print('users login', users_login)
-    # reps_name = GitRequest.objects.filter(req_type='repo').count()
-    # print('reps name', reps_name)
-    # reps_readme = GitRequest.objects.filter(req_type='readme').count()
-    # print('reps readme', reps_readme)
-    # reps_desc = GitRequest.objects.filter(req_type='desc').count()
-    # print('reps desc', reps_desc)
-    # sum_cats = user_searches + users_name + \
-    #     users_login + reps_name + reps_readme + reps_desc
-    # print('num requests', num_requests)
-    # print('sum by cats', sum_cats)
-    # yesterday = datetime.now(tz=tz.tzlocal()) + timedelta(days=-1)
-    # sixhours = datetime.now(tz=tz.tzlocal()) + timedelta(hours=-6)
-    # twohours = datetime.now(tz=tz.tzlocal()) + timedelta(hours=-2)
-    # print('yesterday', yesterday)
-    # print('sixhours', sixhours)
-    # req_yesterday = GitRequest.objects.filter(date__gte=yesterday)
-    # req_sixhours = GitRequest.objects.filter(date__gte=sixhours)
-    # req_twohours = GitRequest.objects.filter(date__gte=twohours)
-    # print('all requests', api_requests.count())
-    # print('last 24 hours', req_yesterday.count())
-    # print('last sixhours', req_sixhours.count())
-    # print('last twohours', req_twohours.count())
-    print(sort_repos)
-    print(sort_repos.sortRepos())
     return render(request, 'gift/index.html', {})
 
 
@@ -66,26 +34,14 @@ def user_render(request, username):
     # If user is not found, try users:
     if 'message' in user_resp:
         return redirect('search_users', query='name:' + username)
-        # return render(request, 'gift/error.html',
-        #               {'message': 'User not found'})
     elif 'error' in user_resp:
         return render(request, 'gift/error.html',
                       {'message': user_resp['error']})
     else:
         json_resp, repos_resp = getUserRepos(username, current_page)
-        # print('repos_resp', repos_resp)
-        # print('resp links', json_resp.links)
         links = json_resp.links
         paging = buildPaging(links, current_page)
-        # print('paging', paging)
         repos_resp = formatRep(repos_resp)
-        # not needed anymore
-        # for rep in repos_resp:
-        #     print(rep['name'], rep['created_at'])
-        # repos_resp.sort(key=lambda x: x['created_at'], reverse=True)
-        # print('')
-        # for rep in repos_resp:
-        #     print(rep['name'], rep['created_at'])
         GitRequest.objects.create(request_text=request_text, req_type='user')
         context = {'user': user_resp, 'repos': repos_resp, 'paging': paging}
         return render(request, 'gift/user.html', context=context)
@@ -99,7 +55,7 @@ def user_post(request):
         username = request.POST['username'].strip()
         print(f'Hello {username}')
         if username.startswith('name:') or username.startswith('login:'):
-            return redirect('search_users', query=username)
+            return redirect('search_users', query=username, sort='best')
         elif username.startswith('repo:') or username.startswith('readme') or username.startswith('desc:'):
             return redirect('search_repos', query=username, sort='stars')
         elif username.startswith('user:'):
@@ -110,29 +66,34 @@ def user_post(request):
         print('error?')
 
 
-def search_users(request, query):
+def search_users(request, query, sort):
+    print('current sort', sort)
     current_page = int(request.GET.get('page', 1))
     place, sep, username = query.partition(':')
     # remove trailing or leading spaces
     place_ = place.strip()
     username_ = username.strip()
     request_text = place_ + sep + username_
-    json_resp, users_resp = getUsers(username_, place_, current_page)
+    json_resp, users_resp = getUsers(username_, place_, current_page, sort)
     # print('users resp', users_resp)
     if users_resp['total_count'] > 0:
+        sort_users.setThisSort(sort)
+        menu_list = sort_users.sortUsers()
         links = json_resp.links
         paging = buildPaging(links, current_page)
         # print('paging', paging)
         GitRequest.objects.create(request_text=request_text, req_type=place_)
         return render(request, 'gift/users.html', {'users': users_resp,
-                                                   'paging': paging})
+                                                   'paging': paging,
+                                                   'menu_list': menu_list,
+                                                   'query': request_text})
     else:
         return render(request, 'gift/error.html',
                       {'message': 'Sorry. No users found.'})
 
 
 def search_repos(request, query, sort):
-    print('current sort', sort)
+    # print('current sort', sort)
     current_page = int(request.GET.get('page', 1))
     place, sep, reponame = query.partition(':')
     # remove trailing or leading spaces
