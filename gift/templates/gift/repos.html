@@ -18,10 +18,6 @@
         {% for item in menu_list %}
           <a href="#" class="dropdown-item ">{{item.name|nbsp}}</a>
         {% endfor %}
-        <!-- <a href="#" class="dropdown-item">Most Stars</a>
-        <a href="#" class="dropdown-item">Most Forks</a>
-        <a href="#" class="dropdown-item">Recently Created</a>
-        <a href="#" class="dropdown-item">Recently Updated</a> -->
       </div>
     </span>
   </div>
@@ -30,44 +26,46 @@
     <div class="user-wrapper">
       <div class="profile">
         <img src="{{rep.owner.avatar_url}}" alt="user avatar">
-        <div class="profile-info">
-          <div>
-            <!-- <span class="item">repo :</span> -->
-            <a class="btn btn-light btn-sm" 
-            href="{{rep.html_url}}" target="_blank" 
-            data-toggle = "tooltip" title="{{rep.description}}">
-            {{rep.name|slice:"0:14"}}
-            </a>
-            <span class="rep-stars">
-              <span class="text-white mx-1">&#9734;</span>
-              <span class="text-white">{{rep.stargazers_count}}</span>
-            </span>
+        <div>
+          <div class="profile-info">
+            <div>
+              <!-- <span class="item">repo :</span> -->
+              <a class="btn btn-light btn-sm py-0" 
+              href="{{rep.html_url}}" target="_blank" 
+              data-toggle = "tooltip" title="{{rep.description}}">
+              {{rep.name|slice:"0:14"}}
+              </a>
+              <span class="rep-stars">
+                <span class="text-white mx-1">&#9734;</span>
+                <span class="text-white">{{rep.stargazers_count}}</span>
+              </span>
+            </div>
+            <div>
+              <form  action="{% url 'post_user' %}" method="post">
+                {% csrf_token %}
+                <input type="text" name="username" value="{{rep.owner.login}}" hidden>
+                <!-- <span class="item">user :</span> -->
+                <button class="btn btn-secondary btn-sm px-3 py-0 " type="submit"
+                data-toggle = "tooltip" title="User Profile in Gift">
+                  {{rep.owner.login|slice:"0:14"}}
+                </button>
+              </form>
+            </div>
+            <div class="profile-info-tail">
+              <div>
+                <span class="badge badge-dark p-2">{{rep.forks}} forks</span>
+              </div>
+              {% if rep.language %}
+              <div>
+                <span class="badge badge-dark p-2">{{rep.language}}</span>
+              </div>
+              {% else %}
+              <div>
+                <span class="badge badge-warning p-2">unknown lang.</span>
+              </div>
+              {% endif %}
+            </div>
           </div>
-          <div>
-            <form  action="{% url 'post_user' %}" method="post">
-              {% csrf_token %}
-              <input type="text" name="username" value="{{rep.owner.login}}" hidden>
-              <!-- <span class="item">user :</span> -->
-              <button class="btn btn-secondary btn-sm px-3 py-0 " type="submit"
-              data-toggle = "tooltip" title="User Profile in Gift">
-                {{rep.owner.login|slice:"0:14"}}
-              </button>
-            </form>
-          </div>
-          <!-- <div>
-            <a class="btn btn-light btn-sm" 
-            href="{{rep.owner.html_url}}" target="_blank"
-            data-toggle = "tooltip" title="Github Profile">github</a>
-          </div> -->
-          {% if rep.language %}
-          <div>
-            <span class="badge badge-dark p-2">{{rep.language}}</span>
-          </div>
-          {% else %}
-          <div>
-            <span class="badge badge-warning p-2">unidentified</span>
-          </div>
-          {% endif %}
         </div>
       </div>
     </div>
@@ -76,7 +74,7 @@
   </div>
 
   {% if paging.has_other_pages %}
-  <ul class="pagination justify-content-center mt-3 mb-3">
+  <ul class="pagination justify-content-center mt-3 mb-5">
     <li class="page-item">
       <a class="page-link" href="?page=1">1</a>
     </li>
