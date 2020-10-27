@@ -35,7 +35,7 @@ def getUsers(username, place, page, sort):
         sort = ''
     elif sort == 'repos':
         sort = 'repositories'
-    print('getUser sort', sort)
+    # print('getUser sort', sort)
     if place == 'name':
         url = f'https://api.github.com/search/users?q={username}+in:fullname&type=Users&page={page}&per_page=60&sort={sort}&o=desc'
     else:  # place == 'login
@@ -68,8 +68,9 @@ def getGitUser(username):
     return resp
 
 
-def getUserRepos(username, page):
-    url = f'https://api.github.com/users/{username}/repos?page={page}&per_page=10&sort=created&order=desc'
+def getUserRepos(username, page, sort, direction):
+    print(username, sort, direction)
+    url = f'https://api.github.com/users/{username}/repos?page={page}&per_page=10&sort={sort}&direction={direction}'
     try:
         json_resp = requests.get(url, headers=headers)
         # json_resp -> python dictionary
@@ -266,3 +267,71 @@ class SortUsers:
     def __str__(self):
         return f'SortRep(best = {self.best}, repos = {self.repos}, ' \
             f'followers = {self.followers}, joined= {self.joined})'
+
+
+class SortUserReps:
+
+    def __init__(self):
+        self.name_asc = False
+        self.name_desc = False
+        self.created = False
+        self.updated = True
+
+    def sortUserReps(self):
+        return [
+            {
+                'value': self.name_asc,
+                'name': f'{self.getPrefix(self.name_asc)} Name (asc)',
+                'sort': 'name_asc'
+            },
+            {
+                'value': self.name_desc,
+                'name': f'{self.getPrefix(self.name_desc)} Name (desc)',
+                'sort': 'name_desc'
+            },
+            {
+                'value': self.created,
+                'name': f'{self.getPrefix(self.created)} Recently Created',
+                'sort': 'created'
+            },
+            {
+                'value': self.updated,
+                'name': f'{self.getPrefix(self.updated)} Recently Updated',
+                'sort': 'updated'
+            }
+        ]
+
+    def setOthers(self, sortList):
+        for sort in sortList:
+            if sort == 'name_asc':
+                self.name_asc = False
+            elif sort == 'name_desc':
+                self.name_desc = False
+            elif sort == 'created':
+                self.created = False
+            else:
+                self.updated = False
+
+    def setThisSort(self, sort):
+        if sort == 'name_asc':
+            self.name_asc = True
+            self.setOthers(['name_desc', 'created', 'updated'])
+        elif sort == 'name_desc':
+            self.name_desc = True
+            self.setOthers(['name_asc', 'created', 'updated'])
+        elif sort == 'created':
+            self.created = True
+            self.setOthers(['name_asc', 'name_desc', 'updated'])
+        else:
+            self.updated = True
+            self.setOthers(['name_asc', 'name_desc', 'created'])
+
+    def getPrefix(self, bool):
+        if bool:
+            return u'\u2713'
+        else:
+            return '   '
+
+    def __str__(self):
+        return f'SortRep(name_asc = {self.name_asc}, name_desc = {self.name_desc}, ' \
+            f'created = {self.created}, updated= {self.updated})'

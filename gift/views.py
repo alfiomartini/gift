@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .utils import getGitUser, getUserRepos, formatRep
 from .utils import getUsers, getRepos, buildPaging
-from .utils import SortRepos, SortUsers
+from .utils import SortRepos, SortUsers, SortUserReps
 from .models import GitRequest
 from datetime import datetime, timedelta
 from dateutil import tz
@@ -12,6 +12,7 @@ import json
 # create sorting menu for repositories, users
 sort_repos = SortRepos()
 sort_users = SortUsers()
+sort_user_reps = SortUserReps()
 
 
 def index(request):
@@ -22,7 +23,8 @@ def readme(request):
     return render(request, 'gift/readme.html', {})
 
 
-def user_render(request, username):
+def user_render(request, username, sort):
+    print('user reps sort', sort)
     current_page = int(request.GET.get('page', 1))
     if username.startswith('user:'):
         prefix, separator, username = username.partition(':')
@@ -37,13 +39,22 @@ def user_render(request, username):
     elif 'error' in user_resp:
         return render(request, 'gift/error.html',
                       {'message': user_resp['error']})
-    else:
-        json_resp, repos_resp = getUserRepos(username, current_page)
+    else:  # Let us get the public reps
+        direction = 'desc'
+        if sort == 'name_asc':
+            direction = 'asc'
+        sort_user_reps.setThisSort(sort)
+        if sort == 'name_asc' or sort == 'name_desc':
+            sort = 'full_name'
+        menu_list = sort_user_reps.sortUserReps()
+        json_resp, repos_resp = getUserRepos(
+            username, current_page, sort, direction)
         links = json_resp.links
         paging = buildPaging(links, current_page)
         repos_resp = formatRep(repos_resp)
         GitRequest.objects.create(request_text=request_text, req_type='user')
-        context = {'user': user_resp, 'repos': repos_resp, 'paging': paging}
+        context = {'user': user_resp, 'repos': repos_resp,
+                   'paging': paging, 'menu_list': menu_list, 'query': request_text}
         return render(request, 'gift/user.html', context=context)
 
 
@@ -59,15 +70,15 @@ def user_post(request):
         elif username.startswith('repo:') or username.startswith('readme') or username.startswith('desc:'):
             return redirect('search_repos', query=username, sort='stars')
         elif username.startswith('user:'):
-            return redirect('user_render', username=username)
+            return redirect('user_render', username=username, sort='updated')
         else:
-            return redirect('user_render', username=username)
+            return redirect('user_render', username=username, sort='updated')
     else:
         print('error?')
 
 
 def search_users(request, query, sort):
-    print('current sort', sort)
+    # print('current sort', sort)
     current_page = int(request.GET.get('page', 1))
     place, sep, username = query.partition(':')
     # remove trailing or leading spaces

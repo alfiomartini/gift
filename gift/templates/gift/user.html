@@ -4,6 +4,9 @@
     User
 {% endblock %}
 
+{% load static %}
+{% load gift_extras %}
+
 {% block body %}
   <div class="github">
     <div class="profile-wrapper">
@@ -11,17 +14,19 @@
         <img src="{{user.avatar_url}}" alt="user avatar">
         <div class="profile-info">
           <div>
-            <!-- <span class="item"> name :</span>   -->
-            <span class="badge badge-dark border border-light p-2">{{user.name}}</span>
+            {% if user.name %}
+            <span class="badge badge-secondary p-2"
+            data-toggle = "tooltip" title="User name">{{user.name}}</span>
+            {% endif %}
           </div>
           <div>
-            <!-- <span class="item">login :</span>  -->
-            <span class="badge badge-dark border border-light p-2">{{user.login}}</span>
+            <span class="badge badge-secondary p-2"
+            data-toggle = "tooltip" title="User Login">{{user.login}}</span>
           </div>
           {% if user.email %}
           <div id="user-email">
             <!-- <span class="item"> email :</span>  -->
-            <span class="badge badge-dark border border-light p-2">{{user.email}}</span>
+            <span class="badge badge-secondary p-2">{{user.email}}</span>
           </div>
           {% else %}
           <!-- <div><span class="item"> email :</span> 
@@ -29,7 +34,6 @@
           </div> -->
           {% endif %}
           <div>
-            <!-- <span class="item mr-3">profile :</span> -->
             <a class="btn btn-light btn-sm" 
             href="{{user.html_url}}" target="_blank" 
             data-toggle = "tooltip" title="Github Profile">github</a>
@@ -39,7 +43,7 @@
         <div class="profile-bio">
           {% if user.bio %}
           <div>
-            <span class="badge badge-dark border border-light p-2 mb-2">biography</span>
+            <span class="badge badge-secondary p-2 mb-2">biography</span>
           </div>
             {{user.bio|slice:"0:150"}}
           {% endif %}
@@ -50,7 +54,7 @@
           {% endif %}
           {% if user.company %}
           <div>
-            <span class="badge badge-dark border border-light p-2 follow mr-2 mt-3">
+            <span class="badge badge-secondary p-2 follow mr-2 mt-3">
               Company
             </span>
               {{user.company}}
@@ -61,15 +65,15 @@
         {% if user.type == 'User' %}
           <div class="profile-followers">
             <div>
-              <span class="badge badge-dark border border-light p-2 follow mr-2">Followers</span>
+              <span class="badge badge-secondary p-2 follow mr-2">Followers</span>
               {{user.followers}}
             </div>
             <div>
-              <span class="badge badge-dark border border-light p-2 follow mr-2">Following</span>
+              <span class="badge badge-secondary p-2 follow mr-2">Following</span>
               {{user.following}}
             </div>
             <div>
-              <span class="badge badge-dark border border-light p-2 follow mr-2">Hireable</span>
+              <span class="badge badge-secondary p-2 follow mr-2">Hireable</span>
               {% if user.hireable %}
                 Yes
               {% else %}
@@ -77,15 +81,25 @@
               {% endif %}
             </div>
           {% endif %}
-          <!-- <div>
-            <span class="badge badge-dark border border-light p-2 follow mr-2">Public Rep.</span>
-            {{user.public_repos}}
-          </div> -->
         </div>
       </div>
     </div>
     <div class="repos-wrapper">
-      <h4 class="repos-heading mb-3">Public Repositories - {{user.public_repos}}</h4>
+      <div class="heading public-reps"> 
+        <span class="heading-text">Public Repositories - {{user.public_repos}}</span>
+        <span class="dropdown sort-options">
+          <a class="dropdown-toggle" href="#"  data-toggle="dropdown">
+            Sort Options
+          </a>
+          <div class="dropdown-menu">
+            {% for item in menu_list %}
+              <a href="#" class="dropdown-item" data-sort="{{item.sort}}"
+                data-query="{{query}}">{{item.name|nbsp}}</a>
+            {% endfor %}
+          </div>
+        </span>
+
+      </div>
       <div class="repos-header">
         <span class="badge badge-dark p-2 name">Name </span>
         <span class="badge badge-dark p-2 star">Stars </span>
@@ -135,7 +149,7 @@
     </div>
   </div>
   {% if paging.has_other_pages %}
-  <ul class="pagination justify-content-center mt-3 mb-3">
+  <ul class="pagination justify-content-center mt-3 mb-5">
     <li class="page-item">
       <a class="page-link page-btn" href="?page=1">1</a>
     </li>
@@ -164,4 +178,5 @@
   {% endif %}
 {% endblock %}
 {% block scripts %}
+<script src="{% static 'gift/sort_user_reps.js' %}"></script>
 {% endblock %}
