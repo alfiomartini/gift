@@ -6,7 +6,8 @@ function sort_dropdown(){
     option.addEventListener('click', () =>{
       const sort = option.dataset.sort;
       const query = option.dataset.query;
-      location.assign(`/repos/get/${query}/${sort}`);
+      const page = option.dataset.page;
+      location.assign(`/repos/get/${query}/${sort}?page=${page}`);
     })
   });
 }

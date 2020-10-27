@@ -54,11 +54,11 @@ def user_render(request, username, sort):
         repos_resp = formatRep(repos_resp)
         GitRequest.objects.create(request_text=request_text, req_type='user')
         context = {'user': user_resp, 'repos': repos_resp,
-                   'paging': paging, 'menu_list': menu_list, 'query': request_text}
+                   'paging': paging, 'menu_list': menu_list,
+                   'query': request_text, 'page': current_page}
         return render(request, 'gift/user.html', context=context)
 
 
-# @ensure_csrf_cookie
 def user_post(request):
     if request.method == 'POST':
         # get username from form and remove spaces from
@@ -97,7 +97,8 @@ def search_users(request, query, sort):
         return render(request, 'gift/users.html', {'users': users_resp,
                                                    'paging': paging,
                                                    'menu_list': menu_list,
-                                                   'query': request_text})
+                                                   'query': request_text,
+                                                   'page': current_page})
     else:
         return render(request, 'gift/error.html',
                       {'message': 'Sorry. No users found.'})
@@ -124,7 +125,8 @@ def search_repos(request, query, sort):
         return render(request, 'gift/repos.html', {'repos': repos_resp,
                                                    'paging': paging,
                                                    'menu_list': menu_list,
-                                                   'query': request_text
+                                                   'query': request_text,
+                                                   'page': current_page
                                                    })
     else:
         return render(request, 'gift/error.html',
