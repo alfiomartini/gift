@@ -6,6 +6,7 @@ from .utils import SortRepos, SortUsers, SortUserReps
 from .models import GitRequest
 from datetime import datetime, timedelta
 from dateutil import tz
+from gift import config
 # from django.views.decorators.csrf import requires_csrf_token, ensure_csrf_cookie
 import json
 
@@ -16,6 +17,7 @@ sort_user_reps = SortUserReps()
 
 
 def index(request):
+    print(config)
     return render(request, 'gift/index.html', {})
 
 
@@ -64,7 +66,7 @@ def user_post(request):
         # get username from form and remove spaces from
         # both ends
         username = request.POST['username'].strip()
-        print(f'Hello {username}')
+        # print(f'Hello {username}')
         if username.startswith('name:') or username.startswith('login:'):
             return redirect('search_users', query=username, sort='best')
         elif username.startswith('repo:') or username.startswith('readme') or username.startswith('desc:'):

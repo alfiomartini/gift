@@ -2,7 +2,7 @@ import os
 import requests
 from datetime import datetime
 from urllib.parse import urlparse, parse_qs
-
+from gift import config
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 headers = {'Authorization': f"token {GITHUB_TOKEN}",
@@ -11,6 +11,8 @@ headers = {'Authorization': f"token {GITHUB_TOKEN}",
 
 def getRepos(reponame, place, page, sort):
     # print('sort = ', sort)
+    config.setConfig('advanced', True)
+    print(config)
     if place == 'repo':
         url = f'https://api.github.com/search/repositories?q={reponame}+in:name&type=Repositories&page={page}&per_page=60&sort={sort}&order=desc'
     elif place == 'readme':
