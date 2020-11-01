@@ -10,7 +10,7 @@
 {% endblock %}
 {% block body %}
   <section class="search-data">
-    <div class="adv-search adv-hide">
+    <div class="adv-search adv-show">
       <div class="header">Advanced Search
       </div>
       <form action="{% url 'apply_adv' %}" method="post" id="adv-form"> 
@@ -63,7 +63,7 @@
           </div>
         </div>
         <div class="search-submit">
-          <button class="btn btn-outline-primary" id="btn-hide">Hide</button>
+          <button class="btn btn-outline-primary " id="btn-hide">Hide</button>
           <button class="btn btn-outline-primary" id="btn-reset">Reset</button>
           <input type="submit" class="btn btn-outline-success" id="btn-apply" value="Apply">
         </div>
@@ -139,5 +139,5 @@
   </section>
 {% endblock %}
 {% block scripts %}
-<script src="{% static 'gift/adv_search.js' %}"></script>
+<script src="{% static 'gift/adv_search.js' %}" defer></script>
 {% endblock %}

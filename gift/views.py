@@ -6,7 +6,7 @@ from .utils import SortRepos, SortUsers, SortUserReps
 from .models import GitRequest
 from datetime import datetime, timedelta
 from dateutil import tz
-from gift import config
+from .adv_search import config
 # from django.views.decorators.csrf import requires_csrf_token, ensure_csrf_cookie
 import json
 
@@ -17,8 +17,13 @@ sort_user_reps = SortUserReps()
 
 
 def index(request):
-    print(config)
-    return render(request, 'gift/index.html', {})
+    settings = config.getConfigAll()
+    return render(request, 'gift/index.html', {'settings': settings})
+
+
+def index_adv(request):
+    settings = config.getConfigAll()
+    return render(request, 'gift/index_adv.html', {'settings': settings})
 
 
 def readme(request):
@@ -26,7 +31,6 @@ def readme(request):
 
 
 def user_render(request, username, sort):
-    print('user reps sort', sort)
     current_page = int(request.GET.get('page', 1))
     if username.startswith('user:'):
         prefix, separator, username = username.partition(':')
@@ -136,6 +140,39 @@ def search_repos(request, query, sort):
 
 
 # these are used by ajax requests:
+
+def reset_adv(request):
+    print('Hello reset')
+    config.__init__()
+    return redirect('index_adv')
+    # return JsonResponse({'message': 'Config reseted'})
+
+
+def apply_adv(request):
+    if request.method == 'POST':
+        print('Hello apply_adv')
+        # https://stackoverflow.com/questions/5895588/django-multivaluedictkeyerror-error-how-do-i-deal-with-it
+        checked = request.POST.get('adv_check', 'off')
+        # print('checked', checked)
+        # print('type of checked', type(checked))
+        if checked == 'on':
+            advanced = True
+        else:
+            advanced = False
+        followers = request.POST['followers']
+        forks = request.POST['forks']
+        language = request.POST['language']
+        stars = request.POST['stars']
+        created_str = request.POST['created']
+        # print('created', created_str)
+        created = datetime.strptime(created_str, "%Y-%m-%d")
+        updated_str = request.POST['updated']
+        updated = datetime.strptime(updated_str, "%Y-%m-%d")
+        # print('updated', updated_str)
+        config.setConfig(advanced=advanced, followers=followers, forks=forks,
+                         stars=stars, language=language, created=created, updated=updated)
+        return redirect('index_adv')
+
 
 def charts(request, category):
     chart = {}
