@@ -25,8 +25,8 @@ SECRET_KEY = os.environ.get('GIFT_SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = True
+# DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 # https://stackoverflow.com/questions/31685688/is-allowed-hosts-needed-on-heroku
 ALLOWED_HOSTS = ['localhost', ".herokuapp.com"]

@@ -45,6 +45,7 @@ class AdvSettings(models.Model):
         self.repositories = repositories
         self.created = created
         self.updated = updated
+        self.save()
 
     def getConfig(self, param):
         if param == 'advanced':
@@ -81,10 +82,12 @@ class AdvSettings(models.Model):
         self.repositories = 0
         self.created = '2008-04-10'
         self.updated = '2008-04-10'
+        self.save()
 
     def __str__(self):
         return f'{self.advanced}, {self.followers}, {self.forks}, {self.stars}, {self.repositories}, {self.created}, {self.updated}'
 
 
-config_db = AdvSettings.objects.create()
+AdvSettings.objects.create()
+# config_db = AdvSettings.objects.get(id=1)
 # print(config_db)

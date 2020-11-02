@@ -3,12 +3,11 @@ from django.http import HttpResponse, JsonResponse
 from .utils import getGitUser, getUserRepos, formatRep
 from .utils import getUsers, getRepos, buildPaging
 from .utils import SortRepos, SortUsers, SortUserReps
-from .models import GitRequest
+from .models import GitRequest, AdvSettings
 from datetime import datetime, timedelta
 from dateutil import tz
 # from .adv_search import config
-from .models import config_db
-# from django.views.decorators.csrf import requires_csrf_token, ensure_csrf_cookie
+# from .models import config_db
 import json
 
 # create sorting menu for repositories, users
@@ -24,6 +23,7 @@ def index(request):
 
 def index_adv(request):
     # print('advanced', config.getConfig('advanced'))
+    config_db = AdvSettings.objects.get(id=1)
     settings = config_db.getConfigAll()
     return render(request, 'gift/index_adv.html', {'settings': settings})
 
@@ -145,6 +145,7 @@ def search_repos(request, query, sort):
 
 def reset_adv(request):
     # print('Hello reset')
+    config_db = AdvSettings.objects.get(id=1)
     config_db.init_db()
     return redirect('index_adv')
     # return JsonResponse({'message': 'Config reseted'})
@@ -152,6 +153,7 @@ def reset_adv(request):
 
 def apply_adv(request):
     if request.method == 'POST':
+        config_db = AdvSettings.objects.get(id=1)
         # print('Hello apply_adv')
         # https://stackoverflow.com/questions/5895588/django-multivaluedictkeyerror-error-how-do-i-deal-with-it
         checked = request.POST.get('adv_check', 'off')
