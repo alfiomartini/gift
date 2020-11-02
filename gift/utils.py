@@ -2,7 +2,8 @@ import os
 import requests
 from datetime import datetime
 from urllib.parse import urlparse, parse_qs
-from .adv_search import config
+# from .adv_search import config
+from .models import config_db
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 headers = {'Authorization': f"token {GITHUB_TOKEN}",
@@ -10,8 +11,8 @@ headers = {'Authorization': f"token {GITHUB_TOKEN}",
 
 
 def getRepos(reponame, place, page, sort):
-    if config.getConfig('advanced') == True:
-        settings = config.getConfigAll()
+    if config_db.getConfig('advanced') == True:
+        settings = config_db.getConfigAll()
         created = settings['created']
         updated = settings['updated']
         stars = settings['stars']
@@ -53,8 +54,8 @@ def getUsers(username, place, page, sort):
     elif sort == 'repos':
         sort = 'repositories'
     # print('getUser sort', sort)
-    if config.getConfig('advanced') == True:
-        settings = config.getConfigAll()
+    if config_db.getConfig('advanced') == True:
+        settings = config_db.getConfigAll()
         created = settings['created']
         repositories = settings['repositories']
         followers = settings['followers']

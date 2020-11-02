@@ -6,7 +6,8 @@ from .utils import SortRepos, SortUsers, SortUserReps
 from .models import GitRequest
 from datetime import datetime, timedelta
 from dateutil import tz
-from .adv_search import config
+# from .adv_search import config
+from .models import config_db
 # from django.views.decorators.csrf import requires_csrf_token, ensure_csrf_cookie
 import json
 
@@ -17,13 +18,13 @@ sort_user_reps = SortUserReps()
 
 
 def index(request):
-    settings = config.getConfigAll()
-    return render(request, 'gift/index.html', {'settings': settings})
+    # settings = config_db.getConfigAll()
+    return render(request, 'gift/index.html', {})
 
 
 def index_adv(request):
     # print('advanced', config.getConfig('advanced'))
-    settings = config.getConfigAll()
+    settings = config_db.getConfigAll()
     return render(request, 'gift/index_adv.html', {'settings': settings})
 
 
@@ -143,8 +144,8 @@ def search_repos(request, query, sort):
 # these are used by ajax requests:
 
 def reset_adv(request):
-    print('Hello reset')
-    config.__init__()
+    # print('Hello reset')
+    config_db.init_db()
     return redirect('index_adv')
     # return JsonResponse({'message': 'Config reseted'})
 
@@ -170,9 +171,9 @@ def apply_adv(request):
         updated_str = request.POST['updated']
         # updated = datetime.strptime(updated_str, "%Y-%m-%d")
         # print('updated', updated_str)
-        config.setConfig(advanced=advanced, followers=followers, forks=forks,
-                         stars=stars, repositories=repositories,
-                         created=created_str, updated=updated_str)
+        config_db.setConfig(advanced=advanced, followers=followers, forks=forks,
+                            stars=stars, repositories=repositories,
+                            created=created_str, updated=updated_str)
         return redirect('index_adv')
 
 

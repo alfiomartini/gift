@@ -24,3 +24,67 @@ class GitRequest(models.Model):
 
     def __str__(self):
         return self.request_text + ', req_type:' + self.req_type + ', date:' + self.formatDate()
+
+
+class AdvSettings(models.Model):
+    id = models.AutoField(primary_key=True)
+    advanced = models.BooleanField(default=False)
+    followers = models.IntegerField(default=0)
+    forks = models.IntegerField(default=0)
+    stars = models.IntegerField(default=0)
+    repositories = models.IntegerField(default=0)
+    created = models.CharField(default='2008-04-10', max_length=10)
+    updated = models.CharField(default='2008-04-10', max_length=10)
+
+    def setConfig(self, advanced, followers, forks, stars,
+                  repositories, created, updated):
+        self.advanced = advanced
+        self.followers = followers
+        self.forks = forks
+        self.stars = stars
+        self.repositories = repositories
+        self.created = created
+        self.updated = updated
+
+    def getConfig(self, param):
+        if param == 'advanced':
+            return self.advanced
+        elif param == 'followers':
+            return self.followers
+        elif param == 'forks':
+            return self.forks
+        elif param == 'stars':
+            return self.stars
+        elif param == 'repositories':
+            return self.repositories
+        elif param == 'created':
+            return self.created
+        else:
+            return self.updated
+
+    def getConfigAll(self):
+        return {
+            'advanced': self.advanced,
+            'followers': self.followers,
+            'forks': self.forks,
+            'stars': self.stars,
+            'repositories': self.repositories,
+            'created': self.created,
+            'updated': self.updated,
+        }
+
+    def init_db(self):
+        self.advanced = False
+        self.followers = 0
+        self.forks = 0
+        self.stars = 0
+        self.repositories = 0
+        self.created = '2008-04-10'
+        self.updated = '2008-04-10'
+
+    def __str__(self):
+        return f'{self.advanced}, {self.followers}, {self.forks}, {self.stars}, {self.repositories}, {self.created}, {self.updated}'
+
+
+config_db = AdvSettings.objects.create()
+# print(config_db)
