@@ -30,42 +30,58 @@
           <div class="form-group">
             <label for="followers">Followers</label>
             <input type="number" class="form-control" id="followers" min="0" 
-            value="{{settings.followers}}" name="followers" required>
+            value="{{settings.followers}}" name="followers" required
+            data-toggle="tooltip"
+            title="Match users whose followers count is at least this value">
           </div>
           <div class="form-group">
             <label for="forks">Forks</label>
             <input type="number" class="form-control" id="forks" min="0" 
-            value="{{settings.forks}}" name="forks" required>
+            value="{{settings.forks}}" name="forks" required
+            data-toggle="tooltip"
+            title="Match repositories whose number of forks is at least this value">
           </div>
         </div>
         <div class="group-data">
           <div class="form-group">
             <label for="stars">Stars</label>
             <input type="number" class="form-control" id="stars" min="0" 
-            value="{{settings.stars}}" name="stars" required>
+            value="{{settings.stars}}" name="stars" required
+            data-toggle="tooltip"
+            title="Match repositories whose number of stars is at least this value">
           </div>
           <div class="form-group">
-            <label for="language">Language</label>
-            <input type="text" class="form-control" id="language" 
-            value="{{settings.language}}" name="language" required>
+            <label for="repositories">Repositories</label>
+            <input type="number" class="form-control" id="repositories" 
+            value="{{settings.repositories}}" name="repositories" required
+            data-toggle="tooltip"
+            title="Match users whose number of repositories is at least this value">
           </div>
         </div>
         <div class="group-data date-values">
           <div class="form-group">
             <label for="created">Created</label>
             <input type="date" class="form-control" id="created" 
-            value="{{settings.created|date:"Y-m-d"}}" name="created" required>
+            value="{{settings.created}}" name="created" required
+            data-toggle="tooltip"
+            title="Match repositories that were created on this date or later. Also match users that joined on this date or later">
           </div>
           <div class="form-group">
             <label for="updated">Updated</label>
             <input type="date" class="form-control" id="updated" 
-            value="{{settings.updated|date:"Y-m-d"}}" name="updated" required>
+            value="{{settings.updated}}" name="updated" required
+            data-toggle="tooltip"
+            title="Match repositories that were updated on this date or later">
           </div>
         </div>
         <div class="search-submit">
           <button class="btn btn-outline-primary " id="btn-hide">Hide</button>
-          <button class="btn btn-outline-primary" id="btn-reset">Reset</button>
-          <input type="submit" class="btn btn-outline-success" id="btn-apply" value="Apply">
+          <button class="btn btn-outline-primary" id="btn-reset"
+          data-toggle="tooltip"
+          title="Restore initial values">Reset</button>
+          <input type="submit" class="btn btn-outline-success" id="btn-apply" value="Apply"
+          data-toggle="tooltip"
+          title="Save parameters">
         </div>
       </form>
     </div>

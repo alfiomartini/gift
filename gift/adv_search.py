@@ -10,18 +10,20 @@ class Config:
         self.followers = 0
         self.forks = 0
         self.stars = 0
-        self.language = 'Any'
+        self.repositories = 0
         # Github came out in April 10, 2008
-        self.created = datetime(2008, 4, 10)
-        self.updated = datetime(2008, 4, 10)
+        # self.created = datetime(2008, 4, 10)
+        self.created = '2008-04-10'
+        # self.updated = datetime(2008, 4, 10)
+        self.updated = '2008-04-10'
 
     def setConfig(self, advanced, followers, forks, stars,
-                  language, created, updated):
+                  repositories, created, updated):
         self.advanced = advanced
         self.followers = followers
         self.forks = forks
         self.stars = stars
-        self.language = language
+        self.repositories = repositories
         self.created = created
         self.updated = updated
 
@@ -34,8 +36,8 @@ class Config:
             self.forks = val
         elif param == 'stars':
             self.stars = val
-        elif param == 'language':
-            self.language = val
+        elif param == 'repositories':
+            self.repositories = val
         elif param == 'created':
             self.created = val
         else:
@@ -50,8 +52,8 @@ class Config:
             return self.forks
         elif param == 'stars':
             return self.stars
-        elif param == 'language':
-            return self.language
+        elif param == 'repositories':
+            return self.repositories
         elif param == 'created':
             return self.created
         else:
@@ -63,7 +65,7 @@ class Config:
             'followers': self.followers,
             'forks': self.forks,
             'stars': self.stars,
-            'language': self.language,
+            'repositories': self.repositories,
             'created': self.created,
             'updated': self.updated,
         }

@@ -32,7 +32,6 @@ function adv_search(){
         adv_board.classList.add('adv-show');
       } 
       else {
-        console.log('Hello hide');
         adv_board.classList.remove('adv-show');
         adv_board.classList.add('adv-hide');
       }

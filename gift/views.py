@@ -22,6 +22,7 @@ def index(request):
 
 
 def index_adv(request):
+    # print('advanced', config.getConfig('advanced'))
     settings = config.getConfigAll()
     return render(request, 'gift/index_adv.html', {'settings': settings})
 
@@ -150,7 +151,7 @@ def reset_adv(request):
 
 def apply_adv(request):
     if request.method == 'POST':
-        print('Hello apply_adv')
+        # print('Hello apply_adv')
         # https://stackoverflow.com/questions/5895588/django-multivaluedictkeyerror-error-how-do-i-deal-with-it
         checked = request.POST.get('adv_check', 'off')
         # print('checked', checked)
@@ -161,16 +162,17 @@ def apply_adv(request):
             advanced = False
         followers = request.POST['followers']
         forks = request.POST['forks']
-        language = request.POST['language']
+        repositories = request.POST['repositories']
         stars = request.POST['stars']
         created_str = request.POST['created']
-        # print('created', created_str)
-        created = datetime.strptime(created_str, "%Y-%m-%d")
+        print('created', created_str)
+        # created = datetime.strptime(created_str, "%Y-%m-%d")
         updated_str = request.POST['updated']
-        updated = datetime.strptime(updated_str, "%Y-%m-%d")
+        # updated = datetime.strptime(updated_str, "%Y-%m-%d")
         # print('updated', updated_str)
         config.setConfig(advanced=advanced, followers=followers, forks=forks,
-                         stars=stars, language=language, created=created, updated=updated)
+                         stars=stars, repositories=repositories,
+                         created=created_str, updated=updated_str)
         return redirect('index_adv')
 
 

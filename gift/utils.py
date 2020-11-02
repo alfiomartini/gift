@@ -10,12 +10,32 @@ headers = {'Authorization': f"token {GITHUB_TOKEN}",
 
 
 def getRepos(reponame, place, page, sort):
-    if place == 'repo':
-        url = f'https://api.github.com/search/repositories?q={reponame}+in:name&type=Repositories&page={page}&per_page=60&sort={sort}&order=desc'
-    elif place == 'readme':
-        url = f'https://api.github.com/search/repositories?q={reponame}+in:readme&type=Repositories&page={page}&per_page=60&sort={sort}&order=desc'
-    else:  # place == description
-        url = f'https://api.github.com/search/repositories?q={reponame}+in:description&type=Repositories&page={page}&per_page=60&sort={sort}&order=desc'
+    if config.getConfig('advanced') == True:
+        print('advanced is true')
+        settings = config.getConfigAll()
+        print(settings['created'])
+        created = settings['created']
+        updated = settings['updated']
+        stars = settings['stars']
+        forks = settings['forks']
+        # I should think on a list of languages (but it is too big)
+        # https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
+        if place == 'repo':
+            url = f'https://api.github.com/search/repositories?q={reponame}+in:name+stars:>={stars}+forks:>={forks}+pushed:>={updated}&type=Repositories&page={page}&per_page=60&sort={sort}&order=desc'
+            print('url', url)
+        elif place == 'readme':
+            url = f'https://api.github.com/search/repositories?q={reponame}+in:readme+stars:>={stars}+forks:>={forks}+pushed:>={updated}&type=Repositories&page={page}&per_page=60&sort={sort}&order=desc'
+            print('url', url)
+        else:  # place == description
+            url = f'https://api.github.com/search/repositories?q={reponame}+in:description+stars:>={stars}+forks:>={forks}+pushed:>={updated}&type=Repositories&page={page}&per_page=60&sort={sort}&order=desc'
+            print('url', url)
+    else:
+        if place == 'repo':
+            url = f'https://api.github.com/search/repositories?q={reponame}+in:name&type=Repositories&page={page}&per_page=60&sort={sort}&order=desc'
+        elif place == 'readme':
+            url = f'https://api.github.com/search/repositories?q={reponame}+in:readme&type=Repositories&page={page}&per_page=60&sort={sort}&order=desc'
+        else:  # place == description
+            url = f'https://api.github.com/search/repositories?q={reponame}+in:description&type=Repositories&page={page}&per_page=60&sort={sort}&order=desc'
     try:
         json_resp = requests.get(url, headers=headers)
         # print('headers', json_resp.headers)
@@ -35,10 +55,20 @@ def getUsers(username, place, page, sort):
     elif sort == 'repos':
         sort = 'repositories'
     # print('getUser sort', sort)
-    if place == 'name':
-        url = f'https://api.github.com/search/users?q={username}+in:fullname&type=Users&page={page}&per_page=60&sort={sort}&o=desc'
-    else:  # place == 'login
-        url = f'https://api.github.com/search/users?q={username}+in:login&type=Users&page={page}&per_page=60&sort={sort}&o=desc'
+    if config.getConfig('advanced') == True:
+        settings = config.getConfigAll()
+        created = settings['created']
+        repositories = settings['repositories']
+        followers = settings['followers']
+        if place == 'name':
+            url = f'https://api.github.com/search/users?q={username}+in:fullname+repos:>={repositories}+created:>={created}+followers:>={followers}&type=Users&page={page}&per_page=60&sort={sort}&o=desc'
+        else:  # place == 'login
+            url = f'https://api.github.com/search/users?q={username}+in:login+repos:>={repositories}+created:>={created}+followers:>={followers}&type=Users&page={page}&per_page=60&sort={sort}&o=desc'
+    else:
+        if place == 'name':
+            url = f'https://api.github.com/search/users?q={username}+in:fullname&type=Users&page={page}&per_page=60&sort={sort}&o=desc'
+        else:  # place == 'login
+            url = f'https://api.github.com/search/users?q={username}+in:login&type=Users&page={page}&per_page=60&sort={sort}&o=desc'
     try:
         json_resp = requests.get(url, headers=headers)
         # json_resp -> python dictionary
