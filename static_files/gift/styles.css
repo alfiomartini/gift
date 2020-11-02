@@ -76,11 +76,70 @@ nav .navbar {
   padding: 10px;
   margin-bottom: 10px;
 }
+
 /* Landing Page */
+
+.adv-show {
+  display: block;
+}
+
+.adv-hide {
+  display: none;
+}
+
+.search-data {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+.adv-search {
+  margin: 100px auto;
+  width: 450px;
+  height: 400px;
+  font-size: 14px;
+  background-color: #252129;
+  color: whitesmoke;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+form .group-data input {
+  width: 180px;
+}
+
+.adv-search .header {
+  text-align: center;
+  padding: 10px;
+  font-size: 18px;
+  margin-top: 0px;
+  color: whitesmoke;
+}
+
+.adv-search .check-message {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.group-data {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.search-submit {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 10px;
+}
+
+.search-submit > input {
+  margin-top: 0px;
+}
 
 .landing-page {
   margin: 100px auto;
-  width: 400px;
+  width: 450px;
   height: 400px;
   background-color: #252129;
   color: whitesmoke;
@@ -107,9 +166,12 @@ nav .navbar {
 }
 
 .landing-page h5 {
-  font-variant: small-caps;
-  margin-bottom: 20px;
-  margin-top: -20px;
+  /* font-variant: small-caps; */
+  font-size: 18px;
+  margin-bottom: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 1px;
+  margin-top: 0px;
 }
 
 /* user.html */
@@ -180,7 +242,6 @@ nav .navbar {
 .repos-wrapper {
   margin: 10px 10px;
   border: 1px solid black;
-  /* background-color: gray; */
 }
 
 .repos-wrapper ul {
@@ -353,8 +414,20 @@ nav .navbar {
     display: none;
   }
 
-  .landing-page {
-    width: 60vw;
+  .repos-wrapper {
+    overflow: auto;
+  }
+
+  .search-data {
+    display: block;
+  }
+
+  .search-data > div {
+    margin: 20px auto;
+  }
+
+  .search-data .adv-search {
+    margin-top: 30px;
   }
 }
 
@@ -385,16 +458,12 @@ nav .navbar {
   .profile-followers {
     display: none;
   }
-
-  .landing-page {
-    width: 80vw;
-  }
 }
 
 @media (max-width: 540px) {
   .repo-list .profile img,
   .users-list .profile img {
-    /* display: none; */
+    display: none;
     width: 100px;
     height: 100px;
   }
@@ -403,9 +472,37 @@ nav .navbar {
   .users-list .profile {
     width: 400px;
   }
+
+  .search-data > div {
+    width: 80vw;
+  }
+
+  .adv-search .group-data {
+    justify-content: space-between;
+  }
+
+  .adv-search .form-group > input {
+    width: 150px;
+  }
+
+  .adv-search .date-values input {
+    width: 180px;
+  }
+
+  .adv-search .date-values {
+    display: block;
+  }
+
+  .adv-search {
+    height: 480px;
+  }
 }
 
 @media (max-width: 470px) {
+  .adv-search {
+    height: 500px;
+  }
+
   .repos-wrapper .star,
   .repos-wrapper span.star,
   .github .profile #user-email {
@@ -421,10 +518,6 @@ nav .navbar {
     align-items: center;
   }
 
-  .landing-page {
-    width: 90vw;
-  }
-
   .repo-list .profile,
   .users-list .profile {
     width: 350px;
@@ -437,9 +530,35 @@ nav .navbar {
   .sort-options {
     float: none;
   }
+
+  .adv-search .form-group > input {
+    width: 120px;
+  }
+
+  .adv-search .date-values input {
+    width: 180px;
+  }
+}
+
+@media (max-width: 420px) {
+  .search-data .adv-search,
+  .search-data .landing-page {
+    width: 90vw;
+  }
 }
 
 @media (max-width: 390px) {
+  .adv-search .group-data {
+    display: block;
+  }
+
+  .adv-search {
+    height: 650px;
+  }
+
+  .adv-search .form-group input {
+    width: 180px;
+  }
   .landing-page input[type="search"] {
     width: 180px;
   }
@@ -479,10 +598,6 @@ nav .navbar {
   .repo-list .profile,
   .users-list .profile {
     width: 260px;
-  }
-
-  .landing-page {
-    width: 90vw;
   }
 
   .landing-page input[type="search"] {

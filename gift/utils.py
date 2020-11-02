@@ -11,9 +11,7 @@ headers = {'Authorization': f"token {GITHUB_TOKEN}",
 
 def getRepos(reponame, place, page, sort):
     if config.getConfig('advanced') == True:
-        print('advanced is true')
         settings = config.getConfigAll()
-        print(settings['created'])
         created = settings['created']
         updated = settings['updated']
         stars = settings['stars']
