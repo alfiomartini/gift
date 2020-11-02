@@ -9,6 +9,7 @@
 {% block styles %}
 {% endblock %}
 {% block body %}
+  <div id="modal-div"></div>
   <section class="search-data">
     <div class="adv-search adv-show">
       <div class="header">Advanced Search
@@ -31,14 +32,14 @@
             <label for="followers">Followers</label>
             <input type="number" class="form-control" id="followers" min="0" 
             value="{{settings.followers}}" name="followers" required
-            data-toggle="tooltip"
+            data-toggle="tooltip" 
             title="Match users whose followers count is at least this value">
           </div>
           <div class="form-group">
             <label for="forks">Forks</label>
             <input type="number" class="form-control" id="forks" min="0" 
             value="{{settings.forks}}" name="forks" required
-            data-toggle="tooltip"
+            data-toggle="tooltip" 
             title="Match repositories whose number of forks is at least this value">
           </div>
         </div>
@@ -54,7 +55,7 @@
             <label for="repositories">Repositories</label>
             <input type="number" class="form-control" id="repositories" 
             value="{{settings.repositories}}" name="repositories" required
-            data-toggle="tooltip"
+            data-toggle="tooltip" min="0"
             title="Match users whose number of repositories is at least this value">
           </div>
         </div>
@@ -63,14 +64,14 @@
             <label for="created">Created</label>
             <input type="date" class="form-control" id="created" 
             value="{{settings.created}}" name="created" required
-            data-toggle="tooltip"
+            min = '2008-04-10' max = '' data-toggle="tooltip"
             title="Match repositories that were created on this date or later. Also match users that joined on this date or later">
           </div>
           <div class="form-group">
             <label for="updated">Updated</label>
             <input type="date" class="form-control" id="updated" 
             value="{{settings.updated}}" name="updated" required
-            data-toggle="tooltip"
+            data-toggle="tooltip"  min = '2008-04-10' max = ''
             title="Match repositories that were updated on this date or later">
           </div>
         </div>
@@ -155,5 +156,6 @@
   </section>
 {% endblock %}
 {% block scripts %}
-<script src="{% static 'gift/adv_search.js' %}" defer></script>
+<script src="{% static 'gift/adv_search.js' %}"></script>
+<script src="{% static 'gift/modal_class.js' %}"></script>
 {% endblock %}
