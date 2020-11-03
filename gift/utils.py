@@ -100,7 +100,7 @@ def getGitUser(username):
 
 
 def getUserRepos(username, page, sort, direction):
-    print(username, sort, direction)
+    # print(username, sort, direction)
     url = f'https://api.github.com/users/{username}/repos?page={page}&per_page=10&sort={sort}&direction={direction}'
     try:
         json_resp = requests.get(url, headers=headers)
