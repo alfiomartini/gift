@@ -43,7 +43,7 @@ def user_render(request, username, sort):
     user_resp = getGitUser(username)
     # If user is not found, try users:
     if 'message' in user_resp:
-        return redirect('search_users', query='name:' + username)
+        return redirect('search_users', query='name:' + username, sort=sort)
     elif 'error' in user_resp:
         return render(request, 'gift/error.html',
                       {'message': user_resp['error']})
