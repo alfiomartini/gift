@@ -545,6 +545,10 @@ form .group-data input {
   .search-data .landing-page {
     width: 90vw;
   }
+
+  #search-input {
+    width: 210px !important;
+  }
 }
 
 @media (max-width: 390px) {
