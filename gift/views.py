@@ -40,6 +40,8 @@ def user_render(request, username, sort):
         request_text = prefix + separator + username
     else:
         request_text = 'user:' + username
+    if username == '':
+        return render(request, 'gift/error.html', {'message': 'Sorry. No user found.'})
     user_resp = getGitUser(username)
     # If user is not found, try users:
     if 'message' in user_resp:
@@ -72,6 +74,8 @@ def user_post(request):
         # get username from form and remove spaces from
         # both ends
         username = request.POST['username'].strip()
+        if username == '':
+            return render(request, 'gift/error.html', {'message': 'Sorry. Nothing found.'})
         # print(f'Hello {username}')
         if username.startswith('name:') or username.startswith('login:'):
             return redirect('search_users', query=username, sort='best')
@@ -92,6 +96,8 @@ def search_users(request, query, sort):
     # remove trailing or leading spaces
     place_ = place.strip()
     username_ = username.strip()
+    if username_ == '':
+        return render(request, 'gift/error.html', {'message': 'Sorry. Nothing found.'})
     request_text = place_ + sep + username_
     json_resp, users_resp = getUsers(username_, place_, current_page, sort)
     # print('users resp', users_resp)
@@ -119,6 +125,8 @@ def search_repos(request, query, sort):
     # remove trailing or leading spaces
     place_ = place.strip()
     reponame_ = reponame.strip()
+    if reponame_ == '':
+        return render(request, 'gift/error.html', {'message': 'Sorry. Nothing found.'})
     request_text = place_ + sep + reponame_
     json_resp, repos_resp = getRepos(
         reponame_, place_, current_page, sort=sort)
