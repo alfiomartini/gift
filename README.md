@@ -18,7 +18,7 @@ This application satisfy all the requirements in the specification of the final 
     - charts.js: code to generate the bar charts associated to the search queries.
     - adv.search: code that controls the advanced search panel.
     - sort_repos.js: controls the dropdown menu for sorting repositories.
-    - sort_uers.js: controls the dropdown menu for sorting users.
+    - sort_users.js: controls the dropdown menu for sorting users.
     - sort_user_reps.js:controls the dropdown menu for sorting user repositories.
   - /templates/gift:
     - layout.html: generates markup that is contained in every page.
